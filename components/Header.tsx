@@ -5,7 +5,7 @@ import { TypeAnimation } from 'react-type-animation';
 
 const Header = () => {
   return (
-    <div className="h-full w-full bg-white flex items-center justify-between overflow-hidden p-8">
+    <div className="h-full w-full bg-white flex items-center justify-between overflow-hidden p-5">
       <div className="flex items-center w-full justify-between">
         <div className="w-2/4 flex justify-start ">
           <Image 
