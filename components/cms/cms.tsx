@@ -1,6 +1,5 @@
-("use client")
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { IoDocumentTextOutline } from 'react-icons/io5';
 import { HiArrowLeftEndOnRectangle } from 'react-icons/hi2';
@@ -12,14 +11,17 @@ interface Document {
 }
 
 const CMSPage: React.FC = () => {
-  // State untuk menyimpan daftar dokumen
-  const [documents, setDocuments] = useState<Document[]>([
-    { id: 1, name: 'Document 1', link: 'http://document1.com' },
-    { id: 2, name: 'Document 2', link: 'http://document2.com' },
-    { id: 3, name: 'Document 3', link: 'http://document3.com' },
-  ]);
+  const [documents, setDocuments] = useState<Document[]>([]);
 
-  // Fungsi untuk menghapus dokumen berdasarkan ID
+  useEffect(() => {
+    // Load documents when component mounts (client-side)
+    setDocuments([
+      { id: 1, name: 'Document 1', link: 'http://document1.com' },
+      { id: 2, name: 'Document 2', link: 'http://document2.com' },
+      { id: 3, name: 'Document 3', link: 'http://document3.com' },
+    ]);
+  }, []);
+
   const handleDeleteDocument = (id: number) => {
     const updatedDocuments = documents.filter(doc => doc.id !== id);
     setDocuments(updatedDocuments);
@@ -90,4 +92,4 @@ const CMSPage: React.FC = () => {
   );
 };
 
-export default CMSPage;
+export default useClient(CMSPage); // Marking component as client-side
