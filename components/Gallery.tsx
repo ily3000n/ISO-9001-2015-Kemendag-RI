@@ -9,12 +9,12 @@ const Gallery = () => {
   
     {
       text: "Inspektorat",
-      className: "text-blue-500 dark:text-sky-400",
+      className: "text-green-500 ",
     },
   
     {
       text: "Jenderal",
-      className: "text-blue-500 dark:text-sky-400",
+      className: "text-green-500 ",
     },
   ];
   const images = [

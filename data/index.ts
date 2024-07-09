@@ -3,8 +3,8 @@ export const Docs = [
     {
       id: 1,
       thumbnail: '/doc1.png', // Replace with the actual path to the image
-      title: 'Document 1',
-      desc: 'This is the description for document 1.',
+      title: 'Document terkendali kementerian perdagangan republik indonesia',
+      desc: 'test test test test test test test test test test test test test test test test',
     },
     {
       id: 2,
