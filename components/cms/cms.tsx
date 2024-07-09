@@ -1,4 +1,4 @@
-
+'use client'
 import React, { useState, useEffect } from 'react';
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { IoDocumentTextOutline } from 'react-icons/io5';
@@ -92,4 +92,4 @@ const CMSPage: React.FC = () => {
   );
 };
 
-export default useClient(CMSPage); // Marking component as client-side
+export default CMSPage;
