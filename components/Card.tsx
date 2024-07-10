@@ -6,7 +6,7 @@ import Image from 'next/image';
 const Card = () => {
   return (
     <div className='py-20 px-4 bg-gray-100' id='exp'>
-      <h1 className='heading text-gray-900 text-center mb-8 font-poppins font-extrabold text-2xl'>
+      <h1 className='heading text-gray-900 text-center mb-8 font-poppins font-extrabold text-4xl'>
         Daftar&nbsp;
         <span className='text-cyan-500'>
           Dokumen
