@@ -37,7 +37,10 @@ const Card = () => {
                   {card.title}
                 </h1>
                 <p className='text-sm md:text-base text-gray-700 mt-2'>
-                  {card.desc}
+                  {card.description}
+                </p>
+                <p className='text-sm md:text-base text-gray-700 mt-2'>
+                  {card.link}
                 </p>
               </div>
             </div>

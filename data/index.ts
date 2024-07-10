@@ -1,59 +1,72 @@
-// data.ts
 export const Docs = [
-    {
-      id: 1,
-      thumbnail: '/11.png', // Replace with the actual path to the image
-      title: 'Document terkendali kementerian perdagangan republik indonesia',
-      desc: 'test test test test test test test test test test test test test test test test',
-    },
-    {
-      id: 2,
-      thumbnail: '/doc1.png', // Replace with the actual path to the image
-      title: 'Document 2',
-      desc: 'This is the description for document 2.',
-    },
-    {
-      id: 3,
-      thumbnail: '/doc1.png', // Replace with the actual path to the image
-      title: 'Document 3',
-      desc: 'This is the description for document 3.',
-    },
-    {
-      id: 4,
-      thumbnail: '/doc1.png', // Replace with the actual path to the image
-      title: 'Document terkendali kementerian perdagangan republik indonesia',
-      desc: 'test test test test test test test test test test test test test test test test',
-    },
-    {
-      id: 5,
-      thumbnail: '/doc1.png', // Replace with the actual path to the image
-      title: 'Document 2',
-      desc: 'This is the description for document 2.',
-    },
-    {
-      id: 6,
-      thumbnail: '/doc1.png', // Replace with the actual path to the image
-      title: 'Document 3',
-      desc: 'This is the description for document 3.',
-    },
-    {
-      id: 7,
-      thumbnail: '/doc1.png', // Replace with the actual path to the image
-      title: 'Document terkendali kementerian perdagangan republik indonesia',
-      desc: 'test test test test test test test test test test test test test test test test',
-    },
-    {
-      id: 8,
-      thumbnail: '/doc1.png', // Replace with the actual path to the image
-      title: 'Document 2',
-      desc: 'This is the description for document 2.',
-    },
-    {
-      id: 9,
-      thumbnail: '/doc1.png', // Replace with the actual path to the image
-      title: 'Document 3',
-      desc: 'This is the description for document 3.',
-    },
-    // Add more documents as needed
-  ];
-  
+  {
+    id: 1,
+    thumbnail: "/11.png",
+    title: 'Document terkendali kementerian perdagangan republik indonesia',
+    description: 'test test test test test test test test test test test test test test test test',
+    link:'instagram.com'
+  },
+  {
+    id: 2,
+    thumbnail: "/doc1.png",
+    title: 'Document 2',
+    description: 'This is the description for document 2.',
+    link:'instagram.com'
+  },
+  {
+    id: 3,
+    thumbnail: "/doc1.png",
+    title: 'Document 3',
+    description: 'This is the description for document 3.',
+    link:'instagram.com'
+  },
+  {
+    id: 4,
+    thumbnail: "/doc1.png",
+    title: 'Document terkendali kementerian perdagangan republik indonesia',
+    description: 'test test test test test test test test test test test test test test test test',
+    link:'instagram.com'
+  },
+  {
+    id: 5,
+    thumbnail: "/doc1.png",
+    title: 'Document 2',
+    description: 'This is the description for document 2.',
+    link:'instagram.com'
+  },
+  {
+    id: 6,
+    thumbnail: "/doc1.png",
+    title: 'Document 3',
+    description: 'This is the description for document 3.',
+    link:'instagram.com'
+  },
+  {
+    id: 7,
+    thumbnail: "/doc1.png",
+    title: 'Document terkendali kementerian perdagangan republik indonesia',
+    description: 'test test test test test test test test test test test test test test test test',
+    link:'instagram.com'
+  },
+  {
+    id: 8,
+    thumbnail: "/doc1.png",
+    title: 'Document 2',
+    description: 'This is the description for document 2.',
+    link:'instagram.com'
+  },
+  {
+    id: 9,
+    thumbnail: "/doc1.png",
+    title: 'Document 3',
+    description: 'This is the description for document 3.',
+    link:'instagram.com'
+  },
+  {
+    id: 10,
+    thumbnail: "/doc1.png",
+    title: 'Document terbaru',
+    description: 'This is the description for document 3.',
+    link:'instagram.com'
+  },
+];
