@@ -1,6 +1,9 @@
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/DaffaJatmiko/project-iso/config"
 	"github.com/DaffaJatmiko/project-iso/internal/controller"
 	"github.com/DaffaJatmiko/project-iso/internal/db"
@@ -10,8 +13,7 @@ import (
 	"github.com/DaffaJatmiko/project-iso/internal/service"
 	"github.com/DaffaJatmiko/project-iso/pkg/util"
 	"github.com/gin-gonic/gin"
-	"log"
-	"os"
+	"github.com/gin-contrib/cors"
 )
 
 func main() {
@@ -60,6 +62,7 @@ func main() {
 	}
 	// Initialize Gin Router
 	r := gin.Default()
+	r.Use(cors.Default())
 
 	r.Static("/uploads", "./uploads")
 	r.Static("/static", "./static")
