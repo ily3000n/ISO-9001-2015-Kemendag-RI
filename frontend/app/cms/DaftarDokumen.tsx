@@ -29,7 +29,9 @@ const DaftarDokumen: React.FC = () => {
       doc.id === selectedDocument?.id
         ? {
             ...doc,
-            thumbnail: formData.get('thumbnail') ? URL.createObjectURL(formData.get('thumbnail') as Blob) : doc.thumbnail,
+            thumbnail: formData.get('thumbnail')
+              ? URL.createObjectURL(formData.get('thumbnail') as Blob)
+              : doc.thumbnail,
             title: formData.get('title') as string,
             description: formData.get('description') as string,
             link: formData.get('link') as string,
@@ -42,7 +44,7 @@ const DaftarDokumen: React.FC = () => {
 
   // Function to handle deleting a document
   const handleDeleteDocument = (id: number) => {
-    const filteredDocuments = documents.filter(doc => doc.id !== id);
+    const filteredDocuments = documents.filter((doc) => doc.id !== id);
     setDocuments(filteredDocuments);
   };
 
