@@ -3,7 +3,7 @@ import AddDocumentModal from './AddDocumentModal';
 import UpdateDocumentModal from './UpdateDocumentModal';
 
 interface Document {
-  id: number;
+  ID: number;
   file_name: string;
   description: string;
   link: string;
@@ -29,6 +29,7 @@ const DaftarDokumen: React.FC = () => {
         throw new Error('Failed to fetch documents');
       }
       const data: Document[] = await response.json();
+      console.log('Fetched documents:', data);
       setDocuments(data);
     } catch (error) {
       console.error('Error fetching documents:', error);
@@ -56,25 +57,35 @@ const DaftarDokumen: React.FC = () => {
     }
   };
 
-  const handleUpdateDocument = async (formData: FormData) => {
+  const handleUpdateDocument = async (formData: FormData, id: number) => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(
-        `http://localhost:8080/api/document/${selectedDocument?.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            Authorization: `${token}`,
-          },
-          body: formData,
-        }
-      );
+      formData.append('id', id.toString());
+
+      // Log the formData content for debugging
+      formData.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+      });
+
+      const response = await fetch('http://localhost:8080/api/document', {
+        method: 'PUT',
+        headers: {
+          Authorization: `${token}`,
+        },
+        body: formData,
+      });
+
+      // Log response for debugging
+      const responseData = await response.json();
+      console.log('Response Data:', responseData);
+
       if (!response.ok) {
         throw new Error('Failed to update document');
       }
-      const updatedDocument: Document = await response.json();
+
+      const updatedDocument: Document = responseData;
       const updatedDocuments = documents.map((doc) =>
-        doc.id === updatedDocument.id ? updatedDocument : doc
+        doc.ID === updatedDocument.ID ? updatedDocument : doc
       );
       setDocuments(updatedDocuments);
       setIsUpdateModalOpen(false);
@@ -86,8 +97,10 @@ const DaftarDokumen: React.FC = () => {
   const handleDeleteDocument = async (id: number | undefined) => {
     try {
       if (id === undefined) {
-        throw new Error('Document ID is undefined');
+        console.error('Document ID is undefined');
+        return;
       }
+      console.log('Deleting document with ID:', id);
       const token = sessionStorage.getItem('token');
       const response = await fetch(`http://localhost:8080/api/document/${id}`, {
         method: 'DELETE',
@@ -96,10 +109,10 @@ const DaftarDokumen: React.FC = () => {
         },
       });
       if (!response.ok) {
-        const errorMessage = await response.text(); // Get the error message from the response
+        const errorMessage = await response.text();
         throw new Error(`Failed to delete document: ${errorMessage}`);
       }
-      const filteredDocuments = documents.filter((doc) => doc.id !== id);
+      const filteredDocuments = documents.filter((doc) => doc.ID !== id);
       setDocuments(filteredDocuments);
     } catch (error) {
       console.error('Error deleting document:', error);
@@ -128,8 +141,8 @@ const DaftarDokumen: React.FC = () => {
         </thead>
         <tbody>
           {documents.map((doc) => (
-            <tr key={doc.id}>
-              <td className="py-2 px-4 border-b">{doc.id}</td>
+            <tr key={doc.ID}>
+              <td className="py-2 px-4 border-b">{doc.ID}</td>
               <td className="py-2 px-4 border-b">{doc.file_name}</td>
               <td className="py-2 px-4 border-b">{doc.description}</td>
               <td className="py-2 px-4 border-b">{doc.link}</td>
@@ -151,7 +164,7 @@ const DaftarDokumen: React.FC = () => {
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDeleteDocument(doc.id)}
+                  onClick={() => handleDeleteDocument(doc.ID)}
                   className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600"
                 >
                   Delete

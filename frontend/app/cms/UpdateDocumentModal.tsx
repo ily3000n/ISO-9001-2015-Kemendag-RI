@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 interface UpdateDocumentModalProps {
   isOpen: boolean;
   initialData: {
-    id: number;
+    ID: number;
     image_path: string;
     file_name: string;
     link: string;
     description: string;
   } | null;
   onClose: () => void;
-  onUpdateDocument: (formData: FormData) => void;
+  onUpdateDocument: (formData: FormData, id: number) => void;
 }
 
 const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({
@@ -23,12 +23,14 @@ const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({
   const [fileName, setFileName] = useState<string>('');
   const [link, setLink] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+  const [imageUrl, setImageUrl] = useState<string>('');
 
   useEffect(() => {
     if (initialData) {
       setFileName(initialData.file_name);
       setLink(initialData.link);
       setDescription(initialData.description);
+      setImageUrl(`http://localhost:8080/${initialData.image_path}`);
     }
   }, [initialData]);
 
@@ -37,19 +39,22 @@ const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({
   ) => {
     if (event.target.files && event.target.files.length > 0) {
       setImagePath(event.target.files[0]);
+      setImageUrl(URL.createObjectURL(event.target.files[0]));
     }
   };
 
   const handleUpdateDocument = () => {
     const formData = new FormData();
     if (imagePath) {
-      formData.append('image_path', imagePath);
+      formData.append('image', imagePath); // Correct key for image
     }
     formData.append('file_name', fileName);
     formData.append('link', link);
     formData.append('description', description);
 
-    onUpdateDocument(formData);
+    if (initialData) {
+      onUpdateDocument(formData, initialData.ID);
+    }
     onClose();
   };
 
@@ -64,6 +69,10 @@ const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({
         <h2 className="text-xl font-bold mb-4">Update Dokumen</h2>
         <form>
           <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Current Image
+            </label>
+            <img src={imageUrl} alt="Current" className="h-16 w-16 object-cover mb-4" />
             <label className="block text-sm font-medium text-gray-700">
               Image Path
             </label>
@@ -104,8 +113,7 @@ const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="border border-gray-300 px-3 py-2 w-full"
-              rows={4}
-            ></textarea>
+            />
           </div>
           <div className="flex justify-end">
             <button
@@ -113,14 +121,14 @@ const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({
               onClick={handleUpdateDocument}
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
             >
-              Simpan Perubahan
+              Update
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="ml-2 text-gray-600 hover:text-gray-800"
+              className="ml-2 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
             >
-              Batal
+              Cancel
             </button>
           </div>
         </form>
@@ -130,6 +138,7 @@ const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({
 };
 
 export default UpdateDocumentModal;
+
 
 // // components/UpdateDocumentModal.tsx
 

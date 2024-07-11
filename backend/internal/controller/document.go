@@ -79,16 +79,24 @@ func (d *DocumentControllerImpl) GetDocumentByID(c *gin.Context) {
 }
 
 func (d *DocumentControllerImpl) UpdateDocument(c *gin.Context) {
+	var document model.Document
+
 	// Bind form fields manually
-	document := model.Document{
-		FileName:    c.PostForm("file_name"),
-		Link:        c.PostForm("link"),
-		Description: c.PostForm("description"),
+	idStr := c.PostForm("id")
+	id, err := strconv.ParseUint(idStr, 10, 64)
+	if err != nil {
+		util.ErrorResponse(c, http.StatusBadRequest, "Invalid document ID")
+		return
 	}
+	document.ID = uint(id) // Set the ID correctly
+
+	document.FileName = c.PostForm("file_name")
+	document.Link = c.PostForm("link")
+	document.Description = c.PostForm("description")
 
 	// Retrieve the file
 	file, err := c.FormFile("image")
-	if err != nil {
+	if err != nil && err != http.ErrMissingFile {
 		util.ErrorResponse(c, http.StatusBadRequest, "Failed to upload image")
 		return
 	}

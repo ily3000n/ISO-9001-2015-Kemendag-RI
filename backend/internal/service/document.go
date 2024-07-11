@@ -47,15 +47,27 @@ func (service *DocumentServiceImpl) GetDocumentByID(documentID uint) (*model.Doc
 }
 
 func (service *DocumentServiceImpl) UpdateDocument(document *model.Document, imageFile *multipart.FileHeader) error {
-	if imageFile != nil {
-		fileName := time.Now().Format("20060102150405") + "_" + imageFile.Filename
-		filePath := filepath.Join("uploads", fileName)
-		if err := saveFile(imageFile, filePath); err != nil {
-			return err
-		}
-		document.ImagePath = filePath
+// Get existing document from the database
+existingDocument, err := service.repo.GetDocumentById(document.ID)
+if err != nil {
+	return err
+}
+
+// Update fields
+existingDocument.FileName = document.FileName
+existingDocument.Link = document.Link
+existingDocument.Description = document.Description
+
+if imageFile != nil {
+	fileName := time.Now().Format("20060102150405") + "_" + imageFile.Filename
+	filePath := filepath.Join("uploads", fileName)
+	if err := saveFile(imageFile, filePath); err != nil {
+		return err
 	}
-	return service.repo.UpdateDocument(document)
+	existingDocument.ImagePath = filePath
+}
+
+return service.repo.UpdateDocument(existingDocument)
 }
 
 func (service *DocumentServiceImpl) DeleteDocument(documentID uint) error {
