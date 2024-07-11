@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/DaffaJatmiko/project-iso/config"
 	"github.com/DaffaJatmiko/project-iso/internal/controller"
@@ -12,8 +13,8 @@ import (
 	"github.com/DaffaJatmiko/project-iso/internal/router"
 	"github.com/DaffaJatmiko/project-iso/internal/service"
 	"github.com/DaffaJatmiko/project-iso/pkg/util"
-	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -58,11 +59,23 @@ func main() {
 
 	// Ensure the upload directory exists
 	if _, err := os.Stat("uploads"); os.IsNotExist(err) {
-		os.Mkdir("uploads", 0777)
+		if err := os.Mkdir("uploads", 0777); err != nil {
+			log.Fatalf("failed to create upload directory: %v", err)
+		}
 	}
+
 	// Initialize Gin Router
 	r := gin.Default()
-	r.Use(cors.Default())
+
+	// Set up CORS middleware with specific configuration
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+		AllowHeaders:     []string{"Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 
 	r.Static("/uploads", "./uploads")
 	r.Static("/static", "./static")
