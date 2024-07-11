@@ -1,7 +1,7 @@
 export const Docs = [
   {
     id: 1,
-    thumbnail: "/11.png",
+    thumbnail: "/doc1.png",
     title: 'Document terkendali kementerian perdagangan republik indonesia',
     description: 'test test test test test test test test test test test test test test test test',
     link:'instagram.com'
@@ -9,7 +9,7 @@ export const Docs = [
   {
     id: 2,
     thumbnail: "/doc1.png",
-    title: 'Document 2',
+    title: 'Dokumen Auditor DEPDAGRI 2024',
     description: 'This is the description for document 2.',
     link:'instagram.com'
   },
