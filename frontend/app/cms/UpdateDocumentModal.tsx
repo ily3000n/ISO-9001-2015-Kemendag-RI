@@ -25,14 +25,16 @@ const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({
   const [description, setDescription] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('');
 
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+
   useEffect(() => {
     if (initialData) {
       setFileName(initialData.file_name);
       setLink(initialData.link);
       setDescription(initialData.description);
-      setImageUrl(`http://localhost:8080/${initialData.image_path}`);
+      setImageUrl(`${backendUrl}/${initialData.image_path}`);
     }
-  }, [initialData]);
+  }, [initialData, backendUrl]);
 
   const handleImagePathChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -46,7 +48,7 @@ const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({
   const handleUpdateDocument = () => {
     const formData = new FormData();
     if (imagePath) {
-      formData.append('image', imagePath); // Correct key for image
+      formData.append('image', imagePath);
     }
     formData.append('file_name', fileName);
     formData.append('link', link);
@@ -72,7 +74,11 @@ const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({
             <label className="block text-sm font-medium text-gray-700">
               Current Image
             </label>
-            <img src={imageUrl} alt="Current" className="h-16 w-16 object-cover mb-4" />
+            <img
+              src={imageUrl}
+              alt="Current"
+              className="h-16 w-16 object-cover mb-4"
+            />
             <label className="block text-sm font-medium text-gray-700">
               Image Path
             </label>
@@ -138,7 +144,6 @@ const UpdateDocumentModal: React.FC<UpdateDocumentModalProps> = ({
 };
 
 export default UpdateDocumentModal;
-
 
 // // components/UpdateDocumentModal.tsx
 

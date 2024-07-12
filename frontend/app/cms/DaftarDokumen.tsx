@@ -18,13 +18,15 @@ const DaftarDokumen: React.FC = () => {
     null
   );
 
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+
   useEffect(() => {
     fetchDocuments();
   }, []);
 
   const fetchDocuments = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/documents');
+      const response = await fetch(`${backendUrl}/api/documents`);
       if (!response.ok) {
         throw new Error('Failed to fetch documents');
       }
@@ -39,7 +41,7 @@ const DaftarDokumen: React.FC = () => {
   const handleAddDocument = async (formData: FormData) => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('http://localhost:8080/api/document', {
+      const response = await fetch(`${backendUrl}/api/document`, {
         method: 'POST',
         headers: {
           Authorization: `${token}`,
@@ -62,12 +64,7 @@ const DaftarDokumen: React.FC = () => {
       const token = sessionStorage.getItem('token');
       formData.append('id', id.toString());
 
-      // Log the formData content for debugging
-      formData.forEach((value, key) => {
-        console.log(`${key}: ${value}`);
-      });
-
-      const response = await fetch('http://localhost:8080/api/document', {
+      const response = await fetch(`${backendUrl}/api/document`, {
         method: 'PUT',
         headers: {
           Authorization: `${token}`,
@@ -75,15 +72,11 @@ const DaftarDokumen: React.FC = () => {
         body: formData,
       });
 
-      // Log response for debugging
-      const responseData = await response.json();
-      console.log('Response Data:', responseData);
-
       if (!response.ok) {
         throw new Error('Failed to update document');
       }
 
-      const updatedDocument: Document = responseData;
+      const updatedDocument: Document = await response.json();
       const updatedDocuments = documents.map((doc) =>
         doc.ID === updatedDocument.ID ? updatedDocument : doc
       );
@@ -102,7 +95,7 @@ const DaftarDokumen: React.FC = () => {
       }
       console.log('Deleting document with ID:', id);
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`http://localhost:8080/api/document/${id}`, {
+      const response = await fetch(`${backendUrl}/api/document/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `${token}`,
@@ -148,7 +141,7 @@ const DaftarDokumen: React.FC = () => {
               <td className="py-2 px-4 border-b">{doc.link}</td>
               <td className="py-2 px-4 border-b">
                 <img
-                  src={`http://localhost:8080/${doc.image_path}`}
+                  src={`${backendUrl}/${doc.image_path}`}
                   alt={doc.file_name}
                   className="h-16 w-16 object-cover"
                 />

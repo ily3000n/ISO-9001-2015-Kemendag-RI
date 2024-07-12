@@ -10,22 +10,23 @@ interface Document {
   image_path: string;
 }
 
-const Card = () => {
+const Card: React.FC = () => {
   const [docs, setDocs] = useState<Document[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/documents');
+        const response = await fetch(`${backendUrl}/api/documents`);
         if (!response.ok) {
           throw new Error('Failed to fetch documents');
         }
         const data: Document[] = await response.json();
         setDocs(data);
       } catch (err) {
-        // Periksa tipe dari error
         if (err instanceof Error) {
           setError(err.message);
         } else {
@@ -37,7 +38,7 @@ const Card = () => {
     };
 
     fetchDocuments();
-  }, []);
+  }, [backendUrl]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -59,7 +60,7 @@ const Card = () => {
             <div className="flex flex-col lg:flex-row items-center p-6 gap-6">
               <div className="flex-shrink-0 w-32 h-32 md:w-36 md:h-36 lg:w-48 lg:h-48">
                 <Image
-                  src={`http://localhost:8080/${card.image_path}`}
+                  src={`${backendUrl}/${card.image_path}`}
                   alt={card.file_name}
                   layout="responsive"
                   width={200}
