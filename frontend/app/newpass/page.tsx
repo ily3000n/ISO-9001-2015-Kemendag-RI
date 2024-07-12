@@ -1,25 +1,47 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const NewPasswordForm = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Get token from query params
+  const token = searchParams.get('token');
+
+  useEffect(() => {
+    if (!token) {
+      setError('Invalid or missing token');
+    }
+  }, [token]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!token) {
+      setError('Invalid or missing token');
+      return;
+    }
     try {
+      const payload = {
+        token: token,
+        new_password: password,
+      };
+
+      console.log('Token:', token);
+      console.log('Payload:', payload);
+
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/new-password`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/reset-password`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ password }),
+          body: JSON.stringify(payload),
         }
       );
 

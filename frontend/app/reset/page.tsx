@@ -13,7 +13,7 @@ const ResetPasswordForm = () => {
     e.preventDefault();
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/reset-password`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/request-password-reset`,
         {
           method: 'POST',
           headers: {
@@ -28,7 +28,7 @@ const ResetPasswordForm = () => {
         throw new Error(error);
       }
 
-      router.push('/login');
+      router.push('/newpass');
     } catch (error: any) {
       setError(error.message);
     }
