@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AddDocumentModal from './AddDocumentModal';
 import UpdateDocumentModal from './UpdateDocumentModal';
+import { Button } from '../../components/ui/moving-border';
 
 interface Document {
   ID: number;
@@ -133,39 +134,55 @@ const DaftarDokumen: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {documents.map((doc) => (
-            <tr key={doc.ID}>
-              <td className="py-2 px-4 border-b">{doc.ID}</td>
-              <td className="py-2 px-4 border-b">{doc.file_name}</td>
-              <td className="py-2 px-4 border-b">{doc.description}</td>
-              <td className="py-2 px-4 border-b">{doc.link}</td>
-              <td className="py-2 px-4 border-b">
-                <img
-                  src={`${backendUrl}/${doc.image_path}`}
-                  alt={doc.file_name}
-                  className="h-16 w-16 object-cover"
-                />
-              </td>
-              <td className="py-2 px-4 border-b">
-                <button
-                  onClick={() => {
-                    setSelectedDocument(doc);
-                    setIsUpdateModalOpen(true);
-                  }}
-                  className="bg-yellow-500 text-white px-2 py-1 rounded-md hover:bg-yellow-600 mr-2"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDeleteDocument(doc.ID)}
-                  className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+  {documents.map((doc) => (
+    <tr key={doc.ID}>
+      <td className="py-2 px-4 border-b">{doc.ID}</td>
+      <td className="py-2 px-4 border-b">{doc.file_name}</td>
+      <td className="py-2 px-4 border-b">{doc.description}</td>
+      <td className="py-2 px-4 border-b">
+        <div className="flex items-center">
+          <Button className='bg-cyan-500 p-2 hover:bg-cyan-600'>
+            <a href={doc.link} className="text-white">Akses Dokumen Ini</a>
+          </Button>
+          <Button
+            onClick={() => {
+              navigator.clipboard.writeText(doc.link);
+              alert('Link copied to clipboard!');
+            }}
+            className="bg-cyan-500 text-white p-2  rounded-md hover:bg-cyan-600"
+          >
+            Copy Link
+          </Button>
+        </div>
+      </td>
+      <td className="py-2 px-4 border-b">
+        <img
+          src={`${backendUrl}/${doc.image_path}`}
+          alt={doc.file_name}
+          className="h-16 w-16 object-cover"
+        />
+      </td>
+      <td className="py-2 px-4 border-b">
+        <button
+          onClick={() => {
+            setSelectedDocument(doc);
+            setIsUpdateModalOpen(true);
+          }}
+          className="bg-yellow-500 text-white px-2 py-1 rounded-md hover:bg-yellow-600 mr-2"
+        >
+          Edit
+        </button>
+        <button
+          onClick={() => handleDeleteDocument(doc.ID)}
+          className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
       </table>
 
       {isAddModalOpen && (
