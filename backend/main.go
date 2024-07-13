@@ -41,6 +41,9 @@ func main() {
 		log.Fatalf("failed to auto migrate database: %v", err)
 	}
 
+		// Seed the database
+		db.Seed(database)
+
 	// Initialize repositories services, and controllers
 	documentRepository := repository.NewDocumentRepository(database)
 	documentService := service.NewDocumentService(documentRepository)
