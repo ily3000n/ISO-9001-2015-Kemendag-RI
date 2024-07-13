@@ -53,31 +53,34 @@ const Card: React.FC = () => {
           <Button
             key={card.id}
             duration={Math.floor(Math.random() * 10000) + 10000}
-            borderColor="#32CD32"
+            borderColor="#22c55e"
             borderRadius="1.75rem"
-            className="transform transition-transform hover:scale-105 flex-1 text-gray-900 border-gray-300 bg-white shadow-lg"
+            className="transform transition-transform hover:scale-105 flex-1 text-gray-900 border-cyan-500 bg-white shadow-lg"
           >
             <div className="flex flex-col lg:flex-row items-center p-6 gap-6">
-              <div className="flex-shrink-0 w-32 h-32 md:w-36 md:h-36 lg:w-48 lg:h-48">
+              <div className="flex-shrink-0 w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-48">
                 <Image
                   src={`${backendUrl}/${card.image_path}`}
                   alt={card.file_name}
-                  layout="responsive"
-                  width={200}
-                  height={200}
+                  width={300}
+                  height={300}
                   className="object-cover rounded-lg"
-                />
+                />  
               </div>
               <div className="flex-1 lg:ml-5">
-                <h1 className="text-lg md:text-2xl lg:text-xl font-extrabold text-blue-950">
+                <div className='text-lg md:text-2xl lg:text-xl font-extrabold text-blue-950'>
                   {card.file_name}
-                </h1>
-                <p className="text-sm md:text-base text-gray-700 mt-2">
+                </div>
+                <div className='text-sm md:text-base text-gray-700 mt-2 mb-11'>
                   {card.description}
-                </p>
-                <p className="text-sm md:text-base text-gray-700 mt-2">
-                  {card.link}
-                </p>
+                </div>
+                <div>
+                  <Button className='bg-cyan-500 p-2 '>
+                    <a href={card.link}>Akses Dokumen Ini</a>
+                    
+                  </Button>
+                </div>
+                
               </div>
             </div>
           </Button>

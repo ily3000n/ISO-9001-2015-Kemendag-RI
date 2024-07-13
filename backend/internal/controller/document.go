@@ -1,12 +1,13 @@
 package controller
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/DaffaJatmiko/project-iso/internal/model"
 	"github.com/DaffaJatmiko/project-iso/internal/service"
 	"github.com/DaffaJatmiko/project-iso/pkg/util"
 	"github.com/gin-gonic/gin"
-	"net/http"
-	"strconv"
 )
 
 type DocumentController interface {
