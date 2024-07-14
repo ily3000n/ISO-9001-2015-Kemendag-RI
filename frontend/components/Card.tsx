@@ -76,7 +76,7 @@ const Card: React.FC = () => {
                 </div>
                 <div>
                   <Button className='bg-cyan-500 p-2 '>
-                    <a href={card.link}>Akses Dokumen Ini</a>
+                    <a href={card.link} target='blank'>Akses Dokumen Ini</a>
                     
                   </Button>
                 </div>

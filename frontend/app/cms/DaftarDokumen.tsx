@@ -142,7 +142,7 @@ const DaftarDokumen: React.FC = () => {
       <td className="py-2 px-4 border-b">
         <div className="flex items-center">
           <Button className='bg-cyan-500 p-2 hover:bg-cyan-600'>
-            <a href={doc.link} className="text-white">Akses Dokumen Ini</a>
+            <a href={doc.link} className="text-white" target='blank'>Akses Dokumen Ini</a>
           </Button>
           <Button
             onClick={() => {
