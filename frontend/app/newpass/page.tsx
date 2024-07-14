@@ -116,7 +116,7 @@ const NewPasswordPage: React.FC = () => {
 
         {/* Bagian Kanan */}
         <div className="w-1/2 h-screen bg-blue-950 flex items-center justify-center rounded-lg">
-          <Image src="/loginimage.png" alt="Image" width={300} height={300} />
+          <Image src="/newpass.png" alt="Image" width={300} height={300} />
         </div>
       </div>
     </div>
