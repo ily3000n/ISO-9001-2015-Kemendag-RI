@@ -21,6 +21,12 @@ const Gallery = () => {
     "slider2.jpg",
     "slider3.jpg",
     "slider4.jpg",
+    "slider5.jpg",
+    "slider6.jpg",
+    "slider7.jpg",
+    "slider8.jpg",
+    "slider9.jpg",
+    "slider10.jpg",
   ];
 
   return (
