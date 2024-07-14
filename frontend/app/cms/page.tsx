@@ -15,7 +15,7 @@ const CMSPage: React.FC = () => {
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (!token) {
-      window.location.href = 'http://localhost:3000/login';
+      window.location.href = 'https://iso-9001-2015-kemendag-ri.vercel.app/login';
     } else {
       setIsLoggedIn(true);
     }
@@ -23,7 +23,7 @@ const CMSPage: React.FC = () => {
 
   const handleLogout = () => {
     sessionStorage.removeItem('token');
-    window.location.href = 'http://localhost:3000/login';
+    window.location.href = 'https://iso-9001-2015-kemendag-ri.vercel.app/login';
   };
 
   if (!isLoggedIn) {
