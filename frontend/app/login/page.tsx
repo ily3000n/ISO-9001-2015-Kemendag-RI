@@ -112,7 +112,7 @@ const LoginPage: React.FC = () => {
         {/* Bagian Kanan */}
         <div className="w-1/2 h-screen bg-blue-950 flex flex-col items-center justify-center rounded-lg">
           <Image src="/iso9001-2015.png" alt="Image" width={200} height={200} className='mt-10' />
-          <Image src="/loginimage.png" alt="Image" width={300} height={300} />
+          <Image src="/login-image.png" alt="Image" width={300} height={300} />
         </div>
 
       </div>
