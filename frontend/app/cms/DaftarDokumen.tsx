@@ -23,7 +23,7 @@ const DaftarDokumen: React.FC = () => {
 
   useEffect(() => {
     fetchDocuments();
-    const interval = setInterval(fetchDocuments, 200); // Poll every 5 seconds
+    const interval = setInterval(fetchDocuments, 2000); // Poll every 5 seconds
 
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, []);
