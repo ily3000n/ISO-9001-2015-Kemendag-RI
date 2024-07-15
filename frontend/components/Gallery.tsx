@@ -47,7 +47,7 @@ const Gallery = () => {
         className="z-50 flex flex-col justify-center items-center px-4 md:px-8 lg:px-16"
       >
         <div className="flex flex-col items-center justify-center h-[40rem] space-y-4 md:space-y-6">
-          <h1 className="text-3xl md:text-5xl text-white font-extrabold text-center">Sistem Penjaminan Mutu</h1>
+          <h1 className="text-3xl md:text-5xl text-white font-extrabold text-center">Sistem Manajemen Mutu</h1>
           <h1 className="text-3xl md:text-5xl text-white font-extrabold text-center">ISO 9001:2015</h1>
           <TypewriterEffectSmooth words={words} />
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-4">
