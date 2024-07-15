@@ -23,9 +23,6 @@ const DaftarDokumen: React.FC = () => {
 
   useEffect(() => {
     fetchDocuments();
-    const interval = setInterval(fetchDocuments, 5000); // Poll every 5 seconds
-
-    return () => clearInterval(interval); // Cleanup interval on unmount
   }, []);
 
   const fetchDocuments = async () => {
@@ -35,7 +32,6 @@ const DaftarDokumen: React.FC = () => {
         throw new Error('Failed to fetch documents');
       }
       const data: Document[] = await response.json();
-      console.log('Fetched documents:', data);
       setDocuments(data);
     } catch (error) {
       console.error('Error fetching documents:', error);
