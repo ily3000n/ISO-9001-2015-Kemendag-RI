@@ -4,7 +4,7 @@ import UpdateDocumentModal from './UpdateDocumentModal';
 import { Button } from '../../components/ui/moving-border';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { CoolMode } from '@/components/magicui/cool-mode'; // Impor CoolMode dari komponen
+import { CoolMode } from '@/components/magicui/cool-mode'; // Pastikan impor CoolMode benar
 
 interface Document {
   ID: number;
@@ -164,23 +164,21 @@ const DaftarDokumen: React.FC = () => {
               <td className="py-2 px-4 border-b">{doc.description}</td>
               <td className="py-2 px-4 border-b">
                 <div className="flex items-center">
-                  
-                    <Button className="bg-cyan-500 p-2 hover:bg-cyan-600">
-                      <a href={doc.link} className="text-white" target="_blank" rel="noopener noreferrer">
-                        Akses Dokumen Ini
-                      </a>
-                    </Button>
-                 
-                  <CoolMode>
-                  <Button
-                    onClick={() => {
-                      navigator.clipboard.writeText(doc.link);
-                      toast.info('Link copied to clipboard!');
-                    }}
-                    className="bg-cyan-500 text-white p-2 rounded-md hover:bg-cyan-600"
-                  >
-                    Copy Link
+                  <Button className="bg-cyan-500 p-2 hover:bg-cyan-600">
+                    <a href={doc.link} className="text-white" target="_blank" rel="noopener noreferrer">
+                      Akses Dokumen Ini
+                    </a>
                   </Button>
+                  <CoolMode>
+                    <Button
+                      onClick={() => {
+                        navigator.clipboard.writeText(doc.link);
+                        toast.info('Link copied to clipboard!');
+                      }}
+                      className="bg-cyan-500 text-white p-2 rounded-md hover:bg-cyan-600"
+                    >
+                      Copy Link
+                    </Button>
                   </CoolMode>
                 </div>
               </td>
