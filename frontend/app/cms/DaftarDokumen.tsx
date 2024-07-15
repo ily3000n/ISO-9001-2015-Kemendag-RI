@@ -4,8 +4,6 @@ import UpdateDocumentModal from './UpdateDocumentModal';
 import { Button } from '../../components/ui/moving-border';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { CoolMode } from '@/components/magicui/cool-mode'; // Pastikan impor CoolMode benar
-
 interface Document {
   ID: number;
   file_name: string;
@@ -13,22 +11,20 @@ interface Document {
   link: string;
   image_path: string;
 }
-
 const DaftarDokumen: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
   const [documents, setDocuments] = useState<Document[]>([]);
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
-
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   useEffect(() => {
     fetchDocuments();
+    
     const interval = setInterval(fetchDocuments, 2000); // Poll every 5 seconds
 
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, []);
-
   const fetchDocuments = async () => {
     try {
       const response = await fetch(`${backendUrl}/api/documents`);
@@ -43,14 +39,12 @@ const DaftarDokumen: React.FC = () => {
       toast.error('Error fetching documents');
     }
   };
-
   const handleAddDocument = async (formData: FormData) => {
     try {
       const token = sessionStorage.getItem('token');
       if (!token) {
         throw new Error('User is not authenticated');
       }
-
       const response = await fetch(`${backendUrl}/api/document`, {
         method: 'POST',
         headers: {
@@ -70,16 +64,13 @@ const DaftarDokumen: React.FC = () => {
       toast.error('Error adding document');
     }
   };
-
   const handleUpdateDocument = async (formData: FormData, id: number) => {
     try {
       const token = sessionStorage.getItem('token');
       if (!token) {
         throw new Error('User is not authenticated');
       }
-
       formData.append('id', id.toString());
-
       const response = await fetch(`${backendUrl}/api/document`, {
         method: 'PUT',
         headers: {
@@ -87,11 +78,9 @@ const DaftarDokumen: React.FC = () => {
         },
         body: formData,
       });
-
       if (!response.ok) {
         throw new Error('Failed to update document');
       }
-
       const updatedDocument: Document = await response.json();
       const updatedDocuments = documents.map((doc) =>
         doc.ID === updatedDocument.ID ? updatedDocument : doc
@@ -104,7 +93,6 @@ const DaftarDokumen: React.FC = () => {
       toast.error('Error updating document');
     }
   };
-
   const handleDeleteDocument = async (id: number | undefined) => {
     try {
       if (id === undefined) {
@@ -116,7 +104,6 @@ const DaftarDokumen: React.FC = () => {
       if (!token) {
         throw new Error('User is not authenticated');
       }
-
       const response = await fetch(`${backendUrl}/api/document/${id}`, {
         method: 'DELETE',
         headers: {
@@ -135,13 +122,9 @@ const DaftarDokumen: React.FC = () => {
       toast.error('Error deleting document');
     }
   };
-
   return (
     <div className="overflow-x-auto mx-auto p-2">
-      <CoolMode>
       <h2 className="text-2xl font-bold mb-4">Daftar Dokumen</h2>
-      </CoolMode>
-     
       <button
         onClick={() => setIsAddModalOpen(true)}
         className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4 hover:bg-blue-600"
@@ -172,23 +155,15 @@ const DaftarDokumen: React.FC = () => {
                       Akses Dokumen Ini
                     </a>
                   </Button>
-                 <button>
-                
-                    <Button
-                    
-                      onClick={() => {
-                        navigator.clipboard.writeText(doc.link);
-                        toast.info('Link copied to clipboard!');
-                      }}
-                      className="bg-cyan-500 text-white p-2 rounded-md hover:bg-cyan-600"
-                    >
-                      Copy Link
-                      <div>
-                        <CoolMode>s</CoolMode>
-                      </div>
-                    </Button>
-                    
-                    </button>
+                  <Button
+                    onClick={() => {
+                      navigator.clipboard.writeText(doc.link);
+                      toast.info('Link copied to clipboard!');
+                    }}
+                    className="bg-cyan-500 text-white p-2 rounded-md hover:bg-cyan-600"
+                  >
+                    Copy Link
+                  </Button>
                 </div>
               </td>
               <td className="py-2 px-4 border-b">
@@ -219,7 +194,6 @@ const DaftarDokumen: React.FC = () => {
           ))}
         </tbody>
       </table>
-
       {isAddModalOpen && (
         <AddDocumentModal
           isOpen={isAddModalOpen}
@@ -227,7 +201,6 @@ const DaftarDokumen: React.FC = () => {
           onAddDocument={handleAddDocument}
         />
       )}
-
       {isUpdateModalOpen && selectedDocument && (
         <UpdateDocumentModal
           isOpen={isUpdateModalOpen}
@@ -240,5 +213,4 @@ const DaftarDokumen: React.FC = () => {
     </div>
   );
 };
-
 export default DaftarDokumen;
