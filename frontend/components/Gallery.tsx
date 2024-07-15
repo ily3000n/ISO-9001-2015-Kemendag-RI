@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { ImagesSlider } from "@/components/ui/images-slider";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import BoxReveal from "@/components/magicui/box-reveal";
 
 const Gallery = () => {
   const words = [
@@ -46,8 +47,12 @@ const Gallery = () => {
         className="z-50 flex flex-col justify-center items-center px-4 md:px-8 lg:px-16"
       >
         <div className="flex flex-col items-center justify-center h-[40rem] space-y-4 md:space-y-6">
+          <BoxReveal boxColor="#49AA4A" duration={0.5}>
           <h1 className="text-3xl md:text-5xl text-white font-extrabold text-center">Sistem Manajemen Mutu</h1>
+          </BoxReveal>
+          <BoxReveal boxColor="#49AA4A" duration={0.5}>
           <h1 className="text-3xl md:text-5xl text-white font-extrabold text-center">ISO 9001:2015</h1>
+          </BoxReveal>
           <TypewriterEffectSmooth words={words} />
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-4">
             {/* Uncomment buttons if needed */}

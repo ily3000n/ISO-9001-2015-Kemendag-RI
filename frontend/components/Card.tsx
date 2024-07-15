@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Button } from './ui/moving-border';
 import Image from 'next/image';
 import Pagination from '@mui/material/Pagination';
-import Particles from '@/components/magicui/particles'; // Sesuaikan dengan path sebenarnya
+import Particles from '@/components/magicui/particles';
 import Stack from '@mui/material/Stack';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { FaRegCopy } from 'react-icons/fa';
 
 interface Document {
   id: number;
@@ -17,8 +20,8 @@ const Card: React.FC = () => {
   const [docs, setDocs] = useState<Document[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [page, setPage] = useState(1); // State for current page
-  const itemsPerPage = 6; // Number of items per page
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 6;
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   useEffect(() => {
@@ -44,17 +47,16 @@ const Card: React.FC = () => {
     fetchDocuments();
   }, [backendUrl]);
 
-  // Pagination logic
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
-  // Calculate pagination range
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
+  
   return (
     <div className="relative py-20 px-4 bg-gray-100" id="exp">
       <Particles className="absolute inset-1 z-1" quantity={1000} color="#22c55e" />
@@ -88,9 +90,18 @@ const Card: React.FC = () => {
                 <div className='text-sm md:text-base text-gray-700 mt-2 mb-11'>
                   {card.description}
                 </div>
-                <div>
-                  <Button className='bg-cyan-500 p-2 '>
+                <div className="flex items-center gap-2">
+                  <Button className='bg-cyan-500 p-2'>
                     <a href={card.link} target='blank'>Akses Dokumen Ini</a>
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      navigator.clipboard.writeText(card.link);
+                      toast.info('Link copied to clipboard!');
+                    }}
+                    className="bg-cyan-500 text-white py-2 px-3 rounded-md hover:bg-cyan-600 flex items-center gap-2"
+                  >
+                    <FaRegCopy />
                   </Button>
                 </div>
               </div>
@@ -108,6 +119,7 @@ const Card: React.FC = () => {
           color="primary"
         />
       </div>
+      <ToastContainer />
     </div>
   );
 };
