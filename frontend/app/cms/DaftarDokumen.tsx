@@ -138,7 +138,10 @@ const DaftarDokumen: React.FC = () => {
 
   return (
     <div className="overflow-x-auto mx-auto p-2">
+      <CoolMode>
       <h2 className="text-2xl font-bold mb-4">Daftar Dokumen</h2>
+      </CoolMode>
+      
       <button
         onClick={() => setIsAddModalOpen(true)}
         className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4 hover:bg-blue-600"
@@ -169,7 +172,7 @@ const DaftarDokumen: React.FC = () => {
                       Akses Dokumen Ini
                     </a>
                   </Button>
-                  <CoolMode>
+                 
                     <Button
                       onClick={() => {
                         navigator.clipboard.writeText(doc.link);
@@ -179,7 +182,7 @@ const DaftarDokumen: React.FC = () => {
                     >
                       Copy Link
                     </Button>
-                  </CoolMode>
+                  
                 </div>
               </td>
               <td className="py-2 px-4 border-b">
