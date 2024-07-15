@@ -56,7 +56,7 @@ const Card: React.FC = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-  
+
   return (
     <div className="relative py-20 px-4 bg-gray-100" id="exp">
       <Particles className="absolute inset-1 z-1" quantity={1000} color="#22c55e" />
@@ -84,22 +84,22 @@ const Card: React.FC = () => {
                 />  
               </div>
               <div className="flex-1 lg:ml-5">
-                <div className='text-lg md:text-2xl lg:text-xl font-extrabold text-blue-950'>
+                <div className="text-lg md:text-2xl lg:text-xl font-extrabold text-blue-950">
                   {card.file_name}
                 </div>
-                <div className='text-sm md:text-base text-gray-700 mt-2 mb-11'>
+                <div className="text-sm md:text-base text-gray-700 mt-2 mb-11">
                   {card.description}
                 </div>
-                <div className="flex items-center gap-2">
-                  <Button className='bg-cyan-500 p-2'>
-                    <a href={card.link} target='blank'>Akses Dokumen Ini</a>
+                <div className="flex items-center gap-2 mt-3">
+                  <Button className="bg-cyan-500 p-2">
+                    <a href={card.link} target="_blank" rel="noopener noreferrer">Akses Dokumen Ini</a>
                   </Button>
-                  <Button
+                  <Button 
                     onClick={() => {
                       navigator.clipboard.writeText(card.link);
                       toast.info('Link copied to clipboard!');
                     }}
-                    className="bg-cyan-500 text-white py-2 px-3 rounded-md hover:bg-cyan-600 flex items-center gap-2"
+                    className="bg-cyan-500 text-white p-2 rounded-md hover:bg-cyan-600 flex items-center gap-2"
                   >
                     <FaRegCopy />
                   </Button>
