@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from './ui/moving-border';
 import Image from 'next/image';
 import Pagination from '@mui/material/Pagination';
+import Particles from '@/components/magicui/particles'; // Sesuaikan dengan path sebenarnya
 import Stack from '@mui/material/Stack';
 
 interface Document {
@@ -55,19 +56,20 @@ const Card: React.FC = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   return (
-    <div className="py-20 px-4 bg-gray-100" id="exp">
-      <h1 className="heading text-gray-900 text-center mb-8 font-poppins font-extrabold text-4xl">
+    <div className="relative py-20 px-4 bg-gray-100" id="exp">
+      <Particles className="absolute inset-1 z-1" quantity={1000} color="#22c55e" />
+      <h1 className="heading text-gray-900 text-center mb-8 font-poppins font-extrabold text-4xl relative z-10">
         Daftar&nbsp;
         <span className="text-cyan-500">Dokumen</span>
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-10">
         {docs.slice(startIndex, endIndex).map((card) => (
           <Button
             key={card.id}
             duration={Math.floor(Math.random() * 10000) + 10000}
             borderColor="#22c55e"
             borderRadius="1.75rem"
-            className="transform transition-transform hover:scale-105 flex-1 text-gray-900 border-cyan-500 bg-white shadow-lg"
+            className="transform transition-transform hover:scale-105 flex-1 text-gray-900 border-cyan-500 bg-white shadow-lg relative z-10"
           >
             <div className="flex flex-col lg:flex-row items-center p-6 gap-6">
               <div className="flex-shrink-0 w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-48">
@@ -96,7 +98,7 @@ const Card: React.FC = () => {
           </Button>
         ))}
       </div>
-      <div className="flex justify-center mt-8">
+      <div className="flex justify-center mt-8 relative z-10">
         <Pagination
           count={Math.ceil(docs.length / itemsPerPage)}
           page={page}
