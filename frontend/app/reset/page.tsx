@@ -39,7 +39,7 @@ const ResetPasswordPage: React.FC = () => {
 
   return (
     <div className='bg-slate-200 p-6'>
-      <div className="flex items-center justify-center h-screen bg-white rounded-lg">
+      <div className="flex items-center justify-center h-screen bg-white rounded-lg ">
         {/* Bagian Kiri */}
         <div className="w-1/2 p-10">
           <div className="flex items-center justify-center mb-8">
