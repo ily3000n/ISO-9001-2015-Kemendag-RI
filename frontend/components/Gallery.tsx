@@ -20,7 +20,6 @@ const Gallery = () => {
     "slider3.jpg",
     "slider1.jpg",
     "slider2.jpg",
-    
     "slider4.jpg",
     "slider5.jpg",
     "slider6.jpg",
