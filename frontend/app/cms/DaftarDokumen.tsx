@@ -164,13 +164,14 @@ const DaftarDokumen: React.FC = () => {
               <td className="py-2 px-4 border-b">{doc.description}</td>
               <td className="py-2 px-4 border-b">
                 <div className="flex items-center">
-                  <CoolMode>
+                  
                     <Button className="bg-cyan-500 p-2 hover:bg-cyan-600">
                       <a href={doc.link} className="text-white" target="_blank" rel="noopener noreferrer">
                         Akses Dokumen Ini
                       </a>
                     </Button>
-                  </CoolMode>
+                 
+                  <CoolMode>
                   <Button
                     onClick={() => {
                       navigator.clipboard.writeText(doc.link);
@@ -180,6 +181,7 @@ const DaftarDokumen: React.FC = () => {
                   >
                     Copy Link
                   </Button>
+                  </CoolMode>
                 </div>
               </td>
               <td className="py-2 px-4 border-b">
