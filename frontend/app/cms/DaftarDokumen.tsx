@@ -173,7 +173,7 @@ const DaftarDokumen: React.FC = () => {
                     </a>
                   </Button>
                  <button>
-                  <CoolMode>
+                
                     <Button
                     
                       onClick={() => {
@@ -183,8 +183,11 @@ const DaftarDokumen: React.FC = () => {
                       className="bg-cyan-500 text-white p-2 rounded-md hover:bg-cyan-600"
                     >
                       Copy Link
+                      <div>
+                        <CoolMode>s</CoolMode>
+                      </div>
                     </Button>
-                    </CoolMode>
+                    
                     </button>
                 </div>
               </td>
