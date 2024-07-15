@@ -24,8 +24,8 @@ const Footer = () => {
         </div>
         <div className='flex flex-col items-center lg:text-left lg:text-md'>
           <h2 className='font-bold mb-2 my-7'>Contact Us</h2>
-          <p>Email: contact.us@kemendag.go.id</p>
-          <p>Phone: (021) 3841961/62</p>
+          <p>Email: informasipublik.itjen@kemendag.go.id</p>
+          <p>Hotline: 08561100095</p>
           
           <div className='flex mt-2 text-2xl'>
             {/* <a target="blank" href="https://facebook.com" className='text-white mr-4'><FaFacebookSquare /></a> */}
