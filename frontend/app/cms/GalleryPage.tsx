@@ -10,6 +10,7 @@ interface Gallery {
 
 const GalleryPage: React.FC = () => {
   const [galleries, setGalleries] = useState<Gallery[]>([]);
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   useEffect(() => {
     fetchGalleries();
@@ -17,7 +18,7 @@ const GalleryPage: React.FC = () => {
 
   const fetchGalleries = async () => {
     try {
-      const response = await fetch('/api/galleries');
+      const response = await fetch(`${backendUrl}/api/galleries`);
       if (!response.ok) {
         throw new Error('Failed to fetch galleries');
       }
