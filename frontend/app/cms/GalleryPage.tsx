@@ -82,8 +82,16 @@ const GalleryPage: React.FC = () => {
     formData.append('image', newImage);
 
     try {
-      const response = await fetch(`${backendUrl}/api/galleries/${selectedGallery.id}`, {
+      const token = sessionStorage.getItem('token');
+      if (!token) {
+        throw new Error('User is not authenticated');
+      }
+      formData.append('id', selectedGallery.id.toString());
+      const response = await fetch(`${backendUrl}/api/gallery`, {
         method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: formData,
       });
 
@@ -91,9 +99,13 @@ const GalleryPage: React.FC = () => {
         throw new Error('Failed to update gallery');
       }
 
+      const updatedGallery: Gallery = await response.json();
+      const updatedGalleries = galleries.map((gallery) =>
+        gallery.id === updatedGallery.id ? updatedGallery : gallery
+      );
+      setGalleries(updatedGalleries);
+      setModalIsOpen(false);
       toast.success('Gallery updated successfully');
-      fetchGalleries();
-      closeModal();
     } catch (error) {
       console.error('Error updating gallery:', error);
       toast.error('Error updating gallery');
