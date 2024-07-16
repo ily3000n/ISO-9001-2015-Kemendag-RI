@@ -4,8 +4,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 interface Gallery {
   id: number;
-  src: string;
-  title: string;
+  image_path: string;
+  
 }
 
 const GalleryPage: React.FC = () => {
@@ -38,14 +38,14 @@ const GalleryPage: React.FC = () => {
         {galleries.map((gallery) => (
           <div key={gallery.id} className="border p-4 rounded shadow-sm">
            <img
-            src={`${backendUrl}${gallery.src}`}
-            alt={gallery.title}
+            src={`${backendUrl}${gallery.image_path}`}
+          
             width={200}
             height={200}
             className="w-full h-48 object-cover mb-2 rounded"
             />
 
-            <h3 className="text-lg font-semibold">{gallery.title}</h3>
+           
             {/* Add additional fields or actions as needed */}
           </div>
         ))}
