@@ -87,13 +87,12 @@ const GalleryPage: React.FC = () => {
         throw new Error('User is not authenticated');
       }
       
-      // Pastikan selectedGallery tidak null sebelum mengakses id-nya
-      if (selectedGallery.id) {
-        formData.append('id', selectedGallery.id.toString());
-      } else {
+      // Ensure selectedGallery is defined before accessing its id
+      if (!selectedGallery.id) {
         throw new Error('Selected gallery ID is undefined');
       }
   
+      formData.append('id', selectedGallery.id.toString());
       const response = await fetch(`${backendUrl}/api/gallery`, {
         method: 'PUT',
         headers: {
