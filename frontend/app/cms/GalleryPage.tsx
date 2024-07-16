@@ -77,16 +77,23 @@ const GalleryPage: React.FC = () => {
       toast.error('Please select a new image');
       return;
     }
-
+  
     const formData = new FormData();
     formData.append('image', newImage);
-
+  
     try {
       const token = sessionStorage.getItem('token');
       if (!token) {
         throw new Error('User is not authenticated');
       }
-      formData.append('id', selectedGallery.id.toString());
+      
+      // Pastikan selectedGallery tidak null sebelum mengakses id-nya
+      if (selectedGallery.id) {
+        formData.append('id', selectedGallery.id.toString());
+      } else {
+        throw new Error('Selected gallery ID is undefined');
+      }
+  
       const response = await fetch(`${backendUrl}/api/gallery`, {
         method: 'PUT',
         headers: {
@@ -94,11 +101,11 @@ const GalleryPage: React.FC = () => {
         },
         body: formData,
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to update gallery');
       }
-
+  
       const updatedGallery: Gallery = await response.json();
       const updatedGalleries = galleries.map((gallery) =>
         gallery.id === updatedGallery.id ? updatedGallery : gallery
@@ -111,6 +118,7 @@ const GalleryPage: React.FC = () => {
       toast.error('Error updating gallery');
     }
   };
+  
 
   return (
     <div className="flex-1 p-8">
