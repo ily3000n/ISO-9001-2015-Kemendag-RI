@@ -87,7 +87,6 @@ const GalleryPage: React.FC = () => {
         throw new Error('User is not authenticated');
       }
       
-      // Pastikan selectedGallery dan id-nya terdefinisi sebelum mengakses
       if (!selectedGallery.id) {
         throw new Error('Selected gallery ID is undefined');
       }
@@ -106,6 +105,7 @@ const GalleryPage: React.FC = () => {
         throw new Error('Failed to update gallery');
       }
   
+      // Assuming the API returns the updated gallery object
       const updatedGallery: Gallery = await response.json();
       const updatedGalleries = galleries.map((gallery) =>
         gallery.id === updatedGallery.id ? updatedGallery : gallery
@@ -118,6 +118,7 @@ const GalleryPage: React.FC = () => {
       toast.error('Error updating gallery');
     }
   };
+  
   
   
 
