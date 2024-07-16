@@ -38,7 +38,8 @@ const GalleryPage: React.FC = () => {
         {galleries.map((gallery) => (
           <div key={gallery.id} className="border p-4 rounded shadow-sm">
            <img
-            src={`${backendUrl}${gallery.image_path}`}
+            src={`${backendUrl}/${gallery.image_path}`}
+          
           
             width={200}
             height={200}
