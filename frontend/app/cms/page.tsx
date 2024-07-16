@@ -4,7 +4,8 @@ import { AiOutlineDashboard } from 'react-icons/ai';
 import { IoDocumentTextOutline } from 'react-icons/io5';
 import { HiArrowLeftEndOnRectangle } from 'react-icons/hi2';
 import { IoHomeOutline } from "react-icons/io5";
-import DaftarDokumen from './DaftarDokumen'; // Pastikan path sesuai dengan struktur folder Anda
+import DaftarDokumen from './DaftarDokumen'; 
+import { GrGallery } from "react-icons/gr";// Pastikan path sesuai dengan struktur folder Anda
 
 const CMSPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<
@@ -81,6 +82,24 @@ const CMSPage: React.FC = () => {
       </a>
     </li>
     <li className="flex items-center justify-start w-full">
+      <IoHomeOutline className="text-xl mr-2" />
+      <a
+        href="/"
+        className="block py-2 px-4 rounded hover:bg-gray-700 w-full text-left"
+      >
+        Home
+      </a>
+    </li>
+    <li className="flex items-center justify-start w-full">
+    <GrGallery  className="text-xl mr-2" />
+      <a
+        href="/"
+        className="block py-2 px-4 rounded hover:bg-gray-700 w-full text-left"
+      >
+        Gallery
+      </a>
+    </li>
+    <li className="flex items-center justify-start w-full">
       <HiArrowLeftEndOnRectangle className="text-xl mr-2" />
       <a
         href="#"
@@ -90,15 +109,7 @@ const CMSPage: React.FC = () => {
         Keluar
       </a>
     </li>
-    <li className="flex items-center justify-start w-full">
-      <IoHomeOutline className="text-xl mr-2" />
-      <a
-        href="/"
-        className="block py-2 px-4 rounded hover:bg-gray-700 w-full text-left"
-      >
-        Home
-      </a>
-    </li>
+    
   </ul>
 </nav>
 
