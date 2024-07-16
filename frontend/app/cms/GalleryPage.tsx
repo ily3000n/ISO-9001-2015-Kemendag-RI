@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Modal from 'react-modal';
 
 interface Gallery {
   id: number;
   image_path: string;
 }
+
+const Modal: React.FC<{ isOpen: boolean; onClose: () => void; children: React.ReactNode }> = ({ isOpen, onClose, children }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded p-6 w-1/3 relative">
+        <button className="absolute top-2 right-2 text-gray-600" onClick={onClose}>
+          ×
+        </button>
+        {children}
+      </div>
+    </div>
+  );
+};
 
 const GalleryPage: React.FC = () => {
   const [galleries, setGalleries] = useState<Gallery[]>([]);
@@ -109,7 +123,7 @@ const GalleryPage: React.FC = () => {
       </div>
       <ToastContainer />
 
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Edit Gallery Modal">
+      <Modal isOpen={modalIsOpen} onClose={closeModal}>
         <h2 className="text-xl mb-4">Edit Gallery</h2>
         <input type="file" onChange={handleImageChange} />
         <div className="mt-4">
