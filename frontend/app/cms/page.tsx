@@ -3,15 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { IoDocumentTextOutline, IoHomeOutline } from 'react-icons/io5';
 import { HiArrowLeftEndOnRectangle } from 'react-icons/hi2';
-import { GrGallery } from 'react-icons/gr';
-import DaftarDokumen from './DaftarDokumen'; 
-import GalleryPage from './GalleryPage'; // Import the new GalleryPage component
+import DaftarDokumen from './DaftarDokumen';
+import GalleryPage from './GalleryPage'; // Import the GalleryPage component
+import { GrGallery } from "react-icons/gr";
 
 const CMSPage: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<
-    'dashboard' | 'documents' | 'gallery' | 'logout'
-  >('dashboard');
+  const [currentPage, setCurrentPage] = useState<'dashboard' | 'documents' | 'gallery' | 'logout'>('dashboard');
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isGalleryModalOpen, setIsGalleryModalOpen] = useState<boolean>(false); // New state for modal open/close
+  const [galleryInitialData, setGalleryInitialData] = useState<any>(null); // New state for initial data
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -31,6 +31,10 @@ const CMSPage: React.FC = () => {
     return null; // Render nothing or a loading spinner while checking login status
   }
 
+  const handleUpdateGalleryImage = (data: any) => {
+    // Handle updating gallery image
+  };
+
   const renderContent = () => {
     switch (currentPage) {
       case 'dashboard':
@@ -43,7 +47,14 @@ const CMSPage: React.FC = () => {
       case 'documents':
         return <DaftarDokumen />;
       case 'gallery':
-        return <GalleryPage />; // Render the GalleryPage component
+        return (
+          <GalleryPage
+            isOpen={isGalleryModalOpen}
+            onClose={() => setIsGalleryModalOpen(false)}
+            onUpdateGalleryImage={handleUpdateGalleryImage}
+            initialData={galleryInitialData}
+          />
+        );
       case 'logout':
         return (
           <div className="flex-1 p-8">
