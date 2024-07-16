@@ -1,6 +1,7 @@
 "use client"
 
 import Card from "@/components/Card";
+import DocumentsPage from "@/components/documents";
 import Footer from "@/components/Footer";
 import Gallery from "@/components/Gallery";
 import Header from "@/components/Header";
@@ -15,6 +16,7 @@ export default function Home() {
           <Gallery />
           <Card />
           <Footer />
+          <DocumentsPage />
           
          
           
