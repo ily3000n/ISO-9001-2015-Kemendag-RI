@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import EditModal from './EditGalleryModal';
 
 interface Gallery {
   id: number;
   image_path: string;
-  
 }
 
 const GalleryPage: React.FC = () => {
   const [galleries, setGalleries] = useState<Gallery[]>([]);
+  const [selectedGallery, setSelectedGallery] = useState<Gallery | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-console.log('Backend URL:', backendUrl);
-
+  console.log('Backend URL:', backendUrl);
 
   useEffect(() => {
     fetchGalleries();
@@ -24,7 +25,7 @@ console.log('Backend URL:', backendUrl);
       toast.error('Backend URL is not defined');
       return;
     }
-  
+
     try {
       const response = await fetch(`${backendUrl}/api/galleries`);
       if (!response.ok) {
@@ -38,7 +39,20 @@ console.log('Backend URL:', backendUrl);
       toast.error('Error fetching galleries');
     }
   };
-  
+
+  const handleEditClick = (gallery: Gallery) => {
+    setSelectedGallery(gallery);
+    setIsEditModalOpen(true);
+  };
+
+  const handleSave = (updatedGallery: Gallery) => {
+    setGalleries((prevGalleries) =>
+      prevGalleries.map((gallery) =>
+        gallery.id === updatedGallery.id ? updatedGallery : gallery
+      )
+    );
+    toast.success('Gallery updated successfully');
+  };
 
   return (
     <div className="flex-1 p-8">
@@ -46,20 +60,29 @@ console.log('Backend URL:', backendUrl);
       <div className="grid grid-cols-3 gap-4">
         {galleries.map((gallery) => (
           <div key={gallery.id} className="border p-4 rounded shadow-sm">
-           <img
-            src={`${backendUrl}/${gallery.image_path}`}
-          
-          
-            width={200}
-            height={200}
-            className="w-full h-48 object-cover mb-2 rounded"
+            <img
+              src={`${backendUrl}/${gallery.image_path}`}
+              width={200}
+              height={200}
+              className="w-full h-48 object-cover mb-2 rounded"
             />
-
-           
-            {/* Add additional fields or actions as needed */}
+            <button
+              onClick={() => handleEditClick(gallery)}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Edit
+            </button>
           </div>
         ))}
       </div>
+      {selectedGallery && (
+        <EditModal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          gallery={selectedGallery}
+          onSave={handleSave}
+        />
+      )}
       <ToastContainer />
     </div>
   );
