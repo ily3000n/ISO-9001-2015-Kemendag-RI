@@ -49,12 +49,12 @@ const GalleryPage: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${backendUrl}/api/galleries`);
+      const response = await fetch(`${backendUrl}/api/gallery`);
       if (!response.ok) {
         throw new Error('Failed to fetch galleries');
       }
       const data = await response.json();
-      console.log('Fetched galleries:', data);
+      console.log('Fetched gallery:', data);
       const formattedData = data.map((item: any) => ({
         id: item.ID,
         image_path: item.image_path,
