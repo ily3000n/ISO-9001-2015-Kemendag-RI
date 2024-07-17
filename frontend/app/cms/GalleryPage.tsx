@@ -49,14 +49,14 @@ const GalleryPage: React.FC = () => {
     }
 
     try {
-      const response = await fetch(${backendUrl}/api/galleries);
+      const response = await fetch(`${backendUrl}/api/galleries`);
       if (!response.ok) {
         throw new Error('Failed to fetch galleries');
       }
       const data = await response.json();
       console.log('Fetched galleries:', data);
       const formattedData = data.map((item: any) => ({
-        id: item.ID, // Ensure the ID is mapped correctly
+        id: item.ID,
         image_path: item.image_path,
       }));
       setGalleries(formattedData);
@@ -90,12 +90,12 @@ const GalleryPage: React.FC = () => {
       return;
     }
 
-    console.log('Selected gallery:', selectedGallery); // Add logging
-    console.log('New image:', newImage); // Add logging
+    console.log('Selected gallery:', selectedGallery);
+    console.log('New image:', newImage);
 
     const formData = new FormData();
     formData.append('image', newImage);
-    formData.append('id', selectedGallery.id.toString()); // Ensure the ID is appended to the form data
+    formData.append('id', selectedGallery.id.toString());
 
     try {
       const token = sessionStorage.getItem('token');
@@ -103,10 +103,10 @@ const GalleryPage: React.FC = () => {
         throw new Error('User is not authenticated');
       }
 
-      const response = await fetch(${backendUrl}/api/gallery, {
+      const response = await fetch(`${backendUrl}/api/galleries/${selectedGallery.id}`, {
         method: 'PUT',
         headers: {
-          Authorization: ${token},
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       });
@@ -115,7 +115,6 @@ const GalleryPage: React.FC = () => {
         throw new Error('Failed to update gallery');
       }
 
-      // Assuming the API returns the updated gallery object
       const updatedGallery: Gallery = await response.json();
       const updatedGalleries = galleries.map((gallery) =>
         gallery.id === updatedGallery.id ? updatedGallery : gallery
@@ -136,7 +135,7 @@ const GalleryPage: React.FC = () => {
         {galleries.map((gallery) => (
           <div key={gallery.id} className="border p-4 rounded shadow-sm">
             <img
-              src={${backendUrl}/${gallery.image_path}}
+              src={`${backendUrl}/${gallery.image_path}`}
               width={200}
               height={200}
               className="w-full h-48 object-cover mb-2 rounded"
