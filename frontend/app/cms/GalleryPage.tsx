@@ -49,7 +49,7 @@ const GalleryPage: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${backendUrl}/api/galleries`);
+      const response = await fetch(`${backendUrl}/api/gallery`);
       if (!response.ok) {
         throw new Error('Failed to fetch galleries');
       }
