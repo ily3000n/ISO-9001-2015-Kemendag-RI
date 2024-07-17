@@ -45,13 +45,37 @@ const GalleryPage: React.FC = () => {
     setIsEditModalOpen(true);
   };
 
-  const handleSave = (updatedGallery: Gallery) => {
-    setGalleries((prevGalleries) =>
-      prevGalleries.map((gallery) =>
-        gallery.id === updatedGallery.id ? updatedGallery : gallery
-      )
-    );
-    toast.success('Gallery updated successfully');
+  const handleSave = async (updatedGallery: Gallery, newImageFile: File | null) => {
+    if (!newImageFile) {
+      toast.error('No image selected');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', newImageFile);
+    formData.append('id', updatedGallery.id.toString());
+
+    try {
+      const response = await fetch(`${backendUrl}/api/galleries/${updatedGallery.id}`, {
+        method: 'PUT',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update gallery');
+      }
+
+      const updatedImageData = await response.json();
+      setGalleries((prevGalleries) =>
+        prevGalleries.map((gallery) =>
+          gallery.id === updatedGallery.id ? updatedImageData : gallery
+        )
+      );
+      toast.success('Gallery updated successfully');
+    } catch (error) {
+      console.error('Error updating gallery:', error);
+      toast.error('Error updating gallery');
+    }
   };
 
   return (

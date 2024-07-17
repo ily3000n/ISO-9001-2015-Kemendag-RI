@@ -6,21 +6,25 @@ interface EditModalProps {
   isOpen: boolean;
   onClose: () => void;
   gallery: Gallery;
-  onSave: (updatedGallery: Gallery) => void;
+  onSave: (updatedGallery: Gallery, newImageFile: File | null) => void;
 }
 
 const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, gallery, onSave }) => {
-  const [imagePath, setImagePath] = useState(gallery.image_path);
+  const [newImageFile, setNewImageFile] = useState<File | null>(null);
 
   const handleSave = () => {
-    if (!imagePath) {
-      toast.error('Image path cannot be empty');
+    if (!newImageFile) {
+      toast.error('Please select an image to upload');
       return;
     }
 
-    const updatedGallery = { ...gallery, image_path: imagePath };
-    onSave(updatedGallery);
+    onSave(gallery, newImageFile);
     onClose();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files ? event.target.files[0] : null;
+    setNewImageFile(file);
   };
 
   if (!isOpen) return null;
@@ -30,11 +34,10 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, gallery, onSave 
       <div className="bg-white p-4 rounded shadow-lg w-1/3">
         <h2 className="text-xl font-bold mb-4">Edit Image</h2>
         <input
-          type="text"
-          value={imagePath}
-          onChange={(e) => setImagePath(e.target.value)}
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
           className="w-full p-2 border rounded mb-4"
-          placeholder="Enter image path"
         />
         <div className="flex justify-end">
           <button
