@@ -49,14 +49,14 @@ const GalleryPage: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${backendUrl}/api/gallery`);
+      const response = await fetch(`${backendUrl}/api/galleries`);
       if (!response.ok) {
         throw new Error('Failed to fetch galleries');
       }
       const data = await response.json();
-      console.log('Fetched gallery:', data);
+      console.log('Fetched galleries:', data);
       const formattedData = data.map((item: any) => ({
-        id: item.ID,
+        id: item.ID, // Ensure the ID is mapped correctly
         image_path: item.image_path,
       }));
       setGalleries(formattedData);
@@ -90,12 +90,12 @@ const GalleryPage: React.FC = () => {
       return;
     }
 
-    console.log('Selected gallery:', selectedGallery);
-    console.log('New image:', newImage);
+    console.log('Selected gallery:', selectedGallery); // Add logging
+    console.log('New image:', newImage); // Add logging
 
     const formData = new FormData();
     formData.append('image', newImage);
-    formData.append('id', selectedGallery.id.toString());
+    formData.append('id', selectedGallery.id.toString()); // Ensure the ID is appended to the form data
 
     try {
       const token = sessionStorage.getItem('token');
@@ -103,10 +103,10 @@ const GalleryPage: React.FC = () => {
         throw new Error('User is not authenticated');
       }
 
-      const response = await fetch(`${backendUrl}/api/galleries/${selectedGallery.id}`, {
+      const response = await fetch(`${backendUrl}/api/gallery`, {
         method: 'PUT',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `${token}`,
         },
         body: formData,
       });
@@ -115,6 +115,7 @@ const GalleryPage: React.FC = () => {
         throw new Error('Failed to update gallery');
       }
 
+      // Assuming the API returns the updated gallery object
       const updatedGallery: Gallery = await response.json();
       const updatedGalleries = galleries.map((gallery) =>
         gallery.id === updatedGallery.id ? updatedGallery : gallery

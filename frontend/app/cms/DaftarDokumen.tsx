@@ -15,12 +15,14 @@ const DaftarDokumen: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
   const [documents, setDocuments] = useState<Document[]>([]);
-  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [selectedDocument, setSelectedDocument] = useState<Document | null>(
+    null
+  );
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   useEffect(() => {
     fetchDocuments();
-    
+
     const interval = setInterval(fetchDocuments, 2000); // Poll every 5 seconds
 
     return () => clearInterval(interval); // Cleanup interval on unmount
@@ -151,7 +153,12 @@ const DaftarDokumen: React.FC = () => {
               <td className="py-2 px-4 border-b">
                 <div className="flex items-center">
                   <Button className="bg-cyan-500 p-2 hover:bg-cyan-600">
-                    <a href={doc.link} className="text-white" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={doc.link}
+                      className="text-white"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       Akses Dokumen Ini
                     </a>
                   </Button>
