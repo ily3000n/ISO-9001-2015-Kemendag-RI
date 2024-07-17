@@ -137,6 +137,7 @@ const GalleryPage: React.FC = () => {
           <div key={gallery.id} className="border p-4 rounded shadow-sm">
             <img
               src={`${backendUrl}/${gallery.image_path}`}
+              alt='test'
               width={200}
               height={200}
               className="w-full h-48 object-cover mb-2 rounded"
