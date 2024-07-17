@@ -28,6 +28,7 @@ const Gallery = () => {
   ];
 
   useEffect(() => {
+    console.log('Backend URL:', backendUrl);
     fetchGalleries();
   }, []);
 
@@ -43,6 +44,7 @@ const Gallery = () => {
         throw new Error('Failed to fetch galleries');
       }
       const data = await response.json();
+      console.log('API Response:', data);
       const formattedData = data.map((item: any) => ({
         id: item.ID,
         image_path: item.image_path,
@@ -55,6 +57,7 @@ const Gallery = () => {
   };
 
   const images = galleries.map((gallery) => `${backendUrl}/${gallery.image_path}`);
+  console.log('Image Paths:', images);
 
   return (
     <ImagesSlider className="h-[39rem]" images={images}>
