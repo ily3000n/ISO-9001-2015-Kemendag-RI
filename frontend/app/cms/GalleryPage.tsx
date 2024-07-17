@@ -3,7 +3,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EditModal from './EditGalleryModal';
 
-interface Gallery {
+export interface Gallery {
   id: number;
   image_path: string;
 }

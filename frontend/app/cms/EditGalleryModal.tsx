@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { Gallery } from './GalleryPage'; // Adjust the path if necessary
 
 interface EditModalProps {
   isOpen: boolean;
