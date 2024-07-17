@@ -3,7 +3,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface Gallery {
-  id: int;
+  id: string;
   image_path: string;
 }
 
