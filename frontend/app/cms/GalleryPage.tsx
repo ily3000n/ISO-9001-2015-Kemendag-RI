@@ -49,7 +49,7 @@ const GalleryPage: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${backendUrl}/api/galleries`);
+      const response = await fetch(${backendUrl}/api/galleries);
       if (!response.ok) {
         throw new Error('Failed to fetch galleries');
       }
@@ -103,10 +103,10 @@ const GalleryPage: React.FC = () => {
         throw new Error('User is not authenticated');
       }
 
-      const response = await fetch(`${backendUrl}/api/galleries/${selectedGallery.id}`, {
+      const response = await fetch(${backendUrl}/api/gallery, {
         method: 'PUT',
         headers: {
-          Authorization: `Bearer ${token}`, // Ensure proper token format
+          Authorization: ${token},
         },
         body: formData,
       });
@@ -115,6 +115,7 @@ const GalleryPage: React.FC = () => {
         throw new Error('Failed to update gallery');
       }
 
+      // Assuming the API returns the updated gallery object
       const updatedGallery: Gallery = await response.json();
       const updatedGalleries = galleries.map((gallery) =>
         gallery.id === updatedGallery.id ? updatedGallery : gallery
@@ -135,7 +136,7 @@ const GalleryPage: React.FC = () => {
         {galleries.map((gallery) => (
           <div key={gallery.id} className="border p-4 rounded shadow-sm">
             <img
-              src={`${backendUrl}/${gallery.image_path}`}
+              src={${backendUrl}/${gallery.image_path}}
               width={200}
               height={200}
               className="w-full h-48 object-cover mb-2 rounded"
