@@ -60,44 +60,50 @@ const Gallery = () => {
   console.log('Image Paths:', images);
 
   return (
-    <ImagesSlider className="h-[39rem]" images={images}>
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: -80,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          duration: 0.6,
-        }}
-        className="z-50 flex flex-col justify-center items-center px-4 md:px-8 lg:px-16"
-      >
-        <div className="flex flex-col items-center justify-center h-[40rem] space-y-4 md:space-y-6">
-          <BoxReveal boxColor="#49AA4A" duration={0.5}>
-            <h1 className="text-3xl md:text-5xl text-white font-extrabold text-center">Sistem Manajemen Mutu</h1>
-          </BoxReveal>
-          <BoxReveal boxColor="#49AA4A" duration={0.5}>
-            <h1 className="text-3xl md:text-5xl text-white font-extrabold text-center">ISO 9001:2015</h1>
-          </BoxReveal>
-          <TypewriterEffectSmooth words={words} />
-          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-4">
-            {/* Uncomment buttons if needed */}
-            {/* 
-            <button className="w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
-              Join now
-            </button>
-            <button className="w-40 h-10 rounded-xl bg-white text-black border border-black text-sm">
-              Signup
-            </button> 
-            */}
-          </div>
-        </div>
-      </motion.div>
+    <div>
+      {images.length > 0 ? (
+        <ImagesSlider className="h-[39rem]" images={images}>
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -80,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 0.6,
+            }}
+            className="z-50 flex flex-col justify-center items-center px-4 md:px-8 lg:px-16"
+          >
+            <div className="flex flex-col items-center justify-center h-[40rem] space-y-4 md:space-y-6">
+              <BoxReveal boxColor="#49AA4A" duration={0.5}>
+                <h1 className="text-3xl md:text-5xl text-white font-extrabold text-center">Sistem Manajemen Mutu</h1>
+              </BoxReveal>
+              <BoxReveal boxColor="#49AA4A" duration={0.5}>
+                <h1 className="text-3xl md:text-5xl text-white font-extrabold text-center">ISO 9001:2015</h1>
+              </BoxReveal>
+              <TypewriterEffectSmooth words={words} />
+              <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-4">
+                {/* Uncomment buttons if needed */}
+                {/* 
+                <button className="w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
+                  Join now
+                </button>
+                <button className="w-40 h-10 rounded-xl bg-white text-black border border-black text-sm">
+                  Signup
+                </button> 
+                */}
+              </div>
+            </div>
+          </motion.div>
+        </ImagesSlider>
+      ) : (
+        <div className="h-[39rem] flex justify-center items-center text-white">Loading images...</div>
+      )}
       <ToastContainer />
-    </ImagesSlider>
+    </div>
   );
 }
 
