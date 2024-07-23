@@ -14,18 +14,13 @@ const Home = () => {
     "Sekretariat Itjen membuat Surat Selesai Audit maksimal 7 hari kerja setelah Seluruh Tl dinyatakan selesai",
   ];
 
-  const newComponents = [
-    { id: 1, name: "domestik", persentase: "" },
-    { id: 2, name: "luar negeri", persentase: "" }
-  ];
-
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Audit Table</h1>
       <AuditTable data={data} />
       
       <h1 className="text-2xl font-bold mt-8 mb-4">PERSENTASE KOMPONEN</h1>
-      <table className="min-w-full border-collapse border border-gray-400 mb-8">
+      <table className="min-w-full border-collapse border border-gray-400">
         <thead>
           <tr>
             <th className="py-2 px-4 border border-gray-400">No</th>
@@ -39,26 +34,6 @@ const Home = () => {
               <td className="py-2 px-4 border border-gray-400">{index + 1}</td>
               <td className="py-2 px-4 border border-gray-400">{component}</td>
               <td className="py-2 px-4 border border-gray-400"></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <h1 className="text-2xl font-bold mt-8 mb-4">PERSENTASE LOKASI</h1>
-      <table className="min-w-full border-collapse border border-gray-400">
-        <thead>
-          <tr>
-            <th className="py-2 px-4 border border-gray-400">No</th>
-            <th className="py-2 px-4 border border-gray-400">Lokasi</th>
-            <th className="py-2 px-4 border border-gray-400">Persentase</th>
-          </tr>
-        </thead>
-        <tbody>
-          {newComponents.map((component) => (
-            <tr key={component.id}>
-              <td className="py-2 px-4 border border-gray-400">{component.id}</td>
-              <td className="py-2 px-4 border border-gray-400">{component.name}</td>
-              <td className="py-2 px-4 border border-gray-400">{component.persentase}</td>
             </tr>
           ))}
         </tbody>
