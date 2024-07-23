@@ -6,6 +6,7 @@ import { HiArrowLeftEndOnRectangle } from 'react-icons/hi2';
 import { GrGallery } from 'react-icons/gr';
 import DaftarDokumen from './DaftarDokumen';
 import GalleryPage from './GalleryPage';
+import { LiaTableSolid } from "react-icons/lia";
 
 type PageType = 'dashboard' | 'documents' | 'gallery' | 'logout';
 
@@ -17,7 +18,7 @@ const CMSPage: React.FC = () => {
     const token = sessionStorage.getItem('token');
     if (!token) {
       window.location.href =
-        'https://iso-9001-2015-kemendag-ri.vercel.app//login';
+        'https://iso-9001-2015-kemendag-ri.vercel.app/login';
     } else {
       setIsLoggedIn(true);
     }
@@ -26,7 +27,7 @@ const CMSPage: React.FC = () => {
   const handleLogout = () => {
     sessionStorage.removeItem('token');
     window.location.href =
-      'https://iso-9001-2015-kemendag-ri.vercel.app//login';
+      'https://iso-9001-2015-kemendag-ri.vercel.app/login';
   };
 
   if (!isLoggedIn) {
@@ -102,6 +103,11 @@ const CMSPage: React.FC = () => {
               icon={<GrGallery className="text-xl mr-2" />}
               label="Gallery"
               onClick={() => setCurrentPage('gallery')}
+            />
+            <NavItem
+              icon={<LiaTableSolid className="text-xl mr-2" />}
+              label="LHI"
+              onClick={() => (window.location.href = '/lhi')}
             />
             <NavItem
               icon={<HiArrowLeftEndOnRectangle className="text-xl mr-2" />}

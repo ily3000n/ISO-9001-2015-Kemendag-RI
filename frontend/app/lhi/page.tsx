@@ -1,64 +1,70 @@
 'use client'
-import { useState, useEffect } from 'react';
-import Modal from './Modal';
+import React from 'react';
+import AuditTable from './AuditTable';
+import { data } from './data';
 
-interface Document {
-  nomor: number;
-  namaDokumen: string;
-  tanggalSurat: string;
-  tanggalPelaksanaan: string;
-  skor: number;
-}
+const Home = () => {
+  const components = [
+    "Surat Pemberitahuan Audit dikirim minimal 10 hari kerja sebelum audit dilaksanakan",
+    "Jumlah hari pelaksanaan Audit",
+    "Jumlah Sumber Daya Manusia dalam Pelaksanaan Audit",
+    "Verifikasi Tindak Lanjut Hasil Audit dilaksanakan maksimal 7 hari kerja",
+    "Penyelesaian IHA dan LHA maksimal 10 hari kerja setelah BA Exit",
+    "Unit Kerja menyampaikan bukti TL pada Aplikasi SI PINTAR maksimal 40 hari kerja setelah BA Exit",
+    "Sekretariat Itjen membuat Surat Selesai Audit maksimal 7 hari kerja setelah Seluruh Tl dinyatakan selesai",
+  ];
 
-export default function Home() {
-  const [documents, setDocuments] = useState<Document[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    const storedDocuments = localStorage.getItem('documents');
-    if (storedDocuments) {
-      setDocuments(JSON.parse(storedDocuments));
-    }
-  }, []);
-
-  const addDocument = (doc: Document) => {
-    const newDocuments = [...documents, doc];
-    setDocuments(newDocuments);
-    localStorage.setItem('documents', JSON.stringify(newDocuments));
-  };
+  const newComponents = [
+    { id: 1, name: "domestik", persentase: "" },
+    { id: 2, name: "luar negeri", persentase: "" }
+  ];
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Document Management</h1>
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-        onClick={() => setIsModalOpen(true)}
-      >
-        Add Document
-      </button>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={addDocument} />
-      <table className="min-w-full bg-white mt-4">
+      <h1 className="text-2xl font-bold mb-4">Audit Table</h1>
+      <AuditTable data={data} />
+      
+      <h1 className="text-2xl font-bold mt-8 mb-4">PERSENTASE KOMPONEN</h1>
+      <table className="min-w-full border-collapse border border-gray-400 mb-8">
         <thead>
           <tr>
-            <th className="py-2">Nomor</th>
-            <th className="py-2">Nama Dokumen</th>
-            <th className="py-2">Tanggal Surat</th>
-            <th className="py-2">Tanggal Pelaksanaan</th>
-            <th className="py-2">Skor</th>
+            <th className="py-2 px-4 border border-gray-400">No</th>
+            <th className="py-2 px-4 border border-gray-400">Komponen</th>
+            <th className="py-2 px-4 border border-gray-400">Persentase</th>
           </tr>
         </thead>
         <tbody>
-          {documents.map((doc, index) => (
+          {components.map((component, index) => (
             <tr key={index}>
-              <td className="border px-4 py-2">{doc.nomor}</td>
-              <td className="border px-4 py-2">{doc.namaDokumen}</td>
-              <td className="border px-4 py-2">{doc.tanggalSurat}</td>
-              <td className="border px-4 py-2">{doc.tanggalPelaksanaan}</td>
-              <td className="border px-4 py-2">{doc.skor}</td>
+              <td className="py-2 px-4 border border-gray-400">{index + 1}</td>
+              <td className="py-2 px-4 border border-gray-400">{component}</td>
+              <td className="py-2 px-4 border border-gray-400"></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h1 className="text-2xl font-bold mt-8 mb-4">PERSENTASE LOKASI</h1>
+      <table className="min-w-full border-collapse border border-gray-400">
+        <thead>
+          <tr>
+            <th className="py-2 px-4 border border-gray-400">No</th>
+            <th className="py-2 px-4 border border-gray-400">Lokasi</th>
+            <th className="py-2 px-4 border border-gray-400">Persentase</th>
+          </tr>
+        </thead>
+        <tbody>
+          {newComponents.map((component) => (
+            <tr key={component.id}>
+              <td className="py-2 px-4 border border-gray-400">{component.id}</td>
+              <td className="py-2 px-4 border border-gray-400">{component.name}</td>
+              <td className="py-2 px-4 border border-gray-400">{component.persentase}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
   );
-}
+};
+
+export default Home;
