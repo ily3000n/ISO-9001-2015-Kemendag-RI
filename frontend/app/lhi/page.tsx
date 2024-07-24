@@ -2,7 +2,6 @@
 import React from 'react';
 import AuditTable from './AuditTable';
 
-
 const Home = () => {
   const components = [
     "Surat Pemberitahuan Audit dikirim minimal 10 hari kerja sebelum audit dilaksanakan",
@@ -14,10 +13,15 @@ const Home = () => {
     "Sekretariat Itjen membuat Surat Selesai Audit maksimal 7 hari kerja setelah Seluruh Tl dinyatakan selesai",
   ];
 
+  const domains = [
+    { nomor: 1, type: 'Domestik', persentase: '' },
+    { nomor: 2, type: 'Luar Negeri', persentase: '' },
+  ];
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Audit Table</h1>
-      <AuditTable  />
+      <AuditTable />
       
       <h1 className="text-2xl font-bold mt-8 mb-4">PERSENTASE KOMPONEN</h1>
       <table className="min-w-full border-collapse border border-gray-400">
@@ -33,6 +37,26 @@ const Home = () => {
             <tr key={index}>
               <td className="py-2 px-4 border border-gray-400">{index + 1}</td>
               <td className="py-2 px-4 border border-gray-400">{component}</td>
+              <td className="py-2 px-4 border border-gray-400"></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      
+      <h1 className="text-2xl font-bold mt-8 mb-4">PERSENTASE DOMAIN</h1>
+      <table className="min-w-full border-collapse border border-gray-400">
+        <thead>
+          <tr>
+            <th className="py-2 px-4 border border-gray-400">Nomor</th>
+            <th className="py-2 px-4 border border-gray-400">Domain</th>
+            <th className="py-2 px-4 border border-gray-400">Persentase</th>
+          </tr>
+        </thead>
+        <tbody>
+          {domains.map((domain, index) => (
+            <tr key={index}>
+              <td className="py-2 px-4 border border-gray-400">{domain.nomor}</td>
+              <td className="py-2 px-4 border border-gray-400">{domain.type}</td>
               <td className="py-2 px-4 border border-gray-400"></td>
             </tr>
           ))}
