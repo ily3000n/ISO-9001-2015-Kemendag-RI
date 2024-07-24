@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import AuditTable from './AuditTable';
-import { data } from './data';
+
 
 const Home = () => {
   const components = [
@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Audit Table</h1>
-      <AuditTable data={data} />
+      <AuditTable  />
       
       <h1 className="text-2xl font-bold mt-8 mb-4">PERSENTASE KOMPONEN</h1>
       <table className="min-w-full border-collapse border border-gray-400">
