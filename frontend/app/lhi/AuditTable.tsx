@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-interface data {
+
+interface Data {
   category: string;
   auditan: string;
   nomorSurat: string;
@@ -26,11 +27,10 @@ interface data {
   skorAudit: string;
 }
 
-
 const AuditTable: React.FC = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Data[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Data>({
     category: '',
     auditan: '',
     nomorSurat: '',
@@ -41,11 +41,19 @@ const AuditTable: React.FC = () => {
     jumlahOrang: '',
     tanggalTindakLanjut: '',
     tanggalVerifikasi: '',
+    kesesuaianVerifikasi: '',
+    skorVerifikasi: '',
     tanggalBAExit: '',
     tanggalTerbitIHA: '',
     tanggalTerbitLHA: '',
+    kesesuaianIHALHA: '',
+    skorIHALHA: '',
     tanggalSelesaiTL: '',
-    tanggalSuratSelesai: ''
+    kesesuaianTL: '',
+    skorTL: '',
+    tanggalSelesaiAudit: '',
+    kesesuaianAudit: '',
+    skorAudit: '',
   });
 
   useEffect(() => {
@@ -58,15 +66,15 @@ const AuditTable: React.FC = () => {
     setData(result.data);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newData = {
       ...formData,
@@ -76,7 +84,7 @@ const AuditTable: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const renderTable = (category) => (
+  const renderTable = (category: string) => (
     <table className="min-w-full bg-white border-collapse border border-gray-400 mb-8">
       <thead>
         <tr>
@@ -135,18 +143,7 @@ const AuditTable: React.FC = () => {
             <td className="py-2 px-4 border border-gray-400">{item.stTanggalMulai}</td>
             <td className="py-2 px-4 border border-gray-400">{item.stTanggalSelesai}</td>
             <td className="py-2 px-4 border border-gray-400">{item.tanggalSuratPemberitahuan}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.jumlahHariPemberitahuan}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.kesesuaianPemberitahuan}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.skorPemberitahuan}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.jumlahHariPelaksanaan}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.kesesuaianPelaksanaan}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.skorPelaksanaan}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.inspektur}</td>
             <td className="py-2 px-4 border border-gray-400">{item.jumlahOrang}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.kesesuaianOrang}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.skorOrang}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.tanggalTindakLanjut}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.tanggalVerifikasi}</td>
             <td className="py-2 px-4 border border-gray-400">{item.kesesuaianVerifikasi}</td>
             <td className="py-2 px-4 border border-gray-400">{item.skorVerifikasi}</td>
             <td className="py-2 px-4 border border-gray-400">{item.tanggalBAExit}</td>
@@ -154,14 +151,13 @@ const AuditTable: React.FC = () => {
             <td className="py-2 px-4 border border-gray-400">{item.tanggalTerbitLHA}</td>
             <td className="py-2 px-4 border border-gray-400">{item.kesesuaianIHALHA}</td>
             <td className="py-2 px-4 border border-gray-400">{item.skorIHALHA}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.tanggalBAExit}</td>
             <td className="py-2 px-4 border border-gray-400">{item.tanggalSelesaiTL}</td>
             <td className="py-2 px-4 border border-gray-400">{item.kesesuaianTL}</td>
             <td className="py-2 px-4 border border-gray-400">{item.skorTL}</td>
-            <td className="py-2 px-4 border border-gray-400">{item.tanggalSelesaiTL}</td>
             <td className="py-2 px-4 border border-gray-400">{item.tanggalSelesaiAudit}</td>
             <td className="py-2 px-4 border border-gray-400">{item.kesesuaianAudit}</td>
             <td className="py-2 px-4 border border-gray-400">{item.skorAudit}</td>
+            <td className="py-2 px-4 border border-gray-400">{/* Add your data here */}</td>
           </tr>
         ))}
       </tbody>
@@ -235,7 +231,7 @@ const AuditTable: React.FC = () => {
                 <label className="block text-gray-700">Tanggal Selesai TL</label>
                 <input type="date" name="tanggalSelesaiTL" value={formData.tanggalSelesaiTL} onChange={handleInputChange} className="w-full border border-gray-400 p-2 rounded mb-2"/>
                 <label className="block text-gray-700">Tanggal Surat Selesai</label>
-                <input type="date" name="tanggalSuratSelesai" value={formData.tanggalSuratSelesai} onChange={handleInputChange} className="w-full border border-gray-400 p-2 rounded mb-2"/>
+                <input type="date" name="tanggalSuratSelesai" value={formData.stTanggalSelesai} onChange={handleInputChange} className="w-full border border-gray-400 p-2 rounded mb-2"/>
               </div>
               <button type="submit" className="w-full py-2 px-4 bg-green-500 text-white rounded">Tambah</button>
             </form>
