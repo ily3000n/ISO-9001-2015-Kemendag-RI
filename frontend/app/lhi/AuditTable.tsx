@@ -170,7 +170,7 @@ const AuditTable: React.FC = () => {
           <th className="py-2 px-4 border border-gray-400" colSpan={4}>
             6. Penyampaian bukti TL
           </th>
-          <th className="py-2 px-4 border border-gray-400" colSpan={4}>
+          <th className="py-2 px-4 border border-gray-400" colSpan={2}>
             7. Surat Selesai Audit
           </th>
           <th className="py-2 px-4 border border-gray-400" rowSpan={2}>
