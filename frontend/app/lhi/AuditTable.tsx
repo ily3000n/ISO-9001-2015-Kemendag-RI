@@ -43,6 +43,11 @@ interface Data {
   kesesuaian: Kesesuaian[];
 }
 
+const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  return date.toISOString(); // Mengonversi ke format 2006-01-02T15:04:05Z07:00
+};
+
 const AuditTable: React.FC = () => {
   const [data, setData] = useState<Data[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -98,10 +103,27 @@ const AuditTable: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = sessionStorage.getItem('token');
+
+    // Konversi format tanggal
+    const formattedData = {
+      ...formData,
+      tanggal_mulai: formatDate(formData.tanggal_mulai),
+      tanggal_selesai: formatDate(formData.tanggal_selesai),
+      tanggal_surat: formatDate(formData.tanggal_surat),
+      tanggal_tindak_lanjut: formatDate(formData.tanggal_tindak_lanjut),
+      tanggal_verifikasi: formatDate(formData.tanggal_verifikasi),
+      tanggal_ba_exit: formatDate(formData.tanggal_ba_exit),
+      tanggal_terbit_iha: formatDate(formData.tanggal_terbit_iha),
+      tanggal_terbit_lha: formatDate(formData.tanggal_terbit_lha),
+      tanggal_selesai_tl: formatDate(formData.tanggal_selesai_tl),
+      tanggal_surat_selesai: formatDate(formData.tanggal_surat_selesai),
+      jumlah_orang: parseInt(formData.jumlah_orang as any, 10),
+    };
+
     try {
       const result = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/audit/audit-with-kesesuaian`,
-        formData,
+        formattedData,
         {
           headers: {
             Authorization: `${token}`,
@@ -114,7 +136,6 @@ const AuditTable: React.FC = () => {
       console.error('Error submitting data', error);
     }
   };
-
   const renderTable = (category: string) => (
     <table className="min-w-full bg-white border-collapse border border-gray-400 mb-8">
       <thead>
@@ -201,102 +222,102 @@ const AuditTable: React.FC = () => {
       </thead>
       <tbody>
         {data
-          .filter((d) => d.kategori === category)
-          .map((row, index) => (
-            <tr key={index}>
+          .filter((item) => item.kategori === category)
+          .map((item, index) => (
+            <tr key={item.ID}>
               <td className="py-2 px-4 border border-gray-400">{index + 1}</td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.auditan}
+                {item.auditan}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.no_surat_tugas}
+                {item.no_surat_tugas}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {new Date(row.tanggal_mulai).toLocaleDateString()}
+                {item.tanggal_mulai}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {new Date(row.tanggal_selesai).toLocaleDateString()}
+                {item.tanggal_selesai}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {new Date(row.tanggal_surat).toLocaleDateString()}
+                {item.tanggal_surat}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].jumlah_hari_surat}
+                {item.kesesuaian[0].jumlah_hari_surat}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].kesesuaian_surat ? 'Ya' : 'Tidak'}
+                {item.kesesuaian[0].kesesuaian_surat ? 'Ya' : 'Tidak'}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].skor_surat}
+                {item.kesesuaian[0].skor_surat}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].jumlah_hari_pelaksanaan}
+                {item.kesesuaian[0].jumlah_hari_pelaksanaan}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].kesesuaian_pelaksanaan ? 'Ya' : 'Tidak'}
+                {item.kesesuaian[0].kesesuaian_pelaksanaan ? 'Ya' : 'Tidak'}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].skor_pelaksanaan}
+                {item.kesesuaian[0].skor_pelaksanaan}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.inspektur_hadir ? 'Ya' : 'Tidak'}
+                {item.inspektur_hadir ? 'Ya' : 'Tidak'}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.jumlah_orang}
+                {item.jumlah_orang}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].kesesuaian_sdm ? 'Ya' : 'Tidak'}
+                {item.kesesuaian[0].kesesuaian_sdm ? 'Ya' : 'Tidak'}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].skor_sdm}
+                {item.kesesuaian[0].skor_sdm}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {new Date(row.tanggal_tindak_lanjut).toLocaleDateString()}
+                {item.tanggal_tindak_lanjut}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {new Date(row.tanggal_verifikasi).toLocaleDateString()}
+                {item.tanggal_verifikasi}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].kesesuaian_verifikasi ? 'Ya' : 'Tidak'}
+                {item.kesesuaian[0].kesesuaian_verifikasi ? 'Ya' : 'Tidak'}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].skor_verifikasi}
+                {item.kesesuaian[0].skor_verifikasi}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {new Date(row.tanggal_ba_exit).toLocaleDateString()}
+                {item.tanggal_ba_exit}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {new Date(row.tanggal_terbit_iha).toLocaleDateString()}
+                {item.tanggal_terbit_iha}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {new Date(row.tanggal_terbit_lha).toLocaleDateString()}
+                {item.tanggal_terbit_lha}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].kesesuaian_iha ? 'Ya' : 'Tidak'}
+                {item.kesesuaian[0].kesesuaian_iha ? 'Ya' : 'Tidak'}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].skor_iha}
+                {item.kesesuaian[0].skor_iha}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {new Date(row.tanggal_selesai_tl).toLocaleDateString()}
+                {item.tanggal_selesai_tl}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].kesesuaian_bukti_tl ? 'Ya' : 'Tidak'}
+                {item.kesesuaian[0].kesesuaian_bukti_tl ? 'Ya' : 'Tidak'}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].skor_bukti_tl}
+                {item.kesesuaian[0].skor_bukti_tl}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {new Date(row.tanggal_surat_selesai).toLocaleDateString()}
+                {item.tanggal_surat_selesai}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].kesesuaian_selesai_audit ? 'Ya' : 'Tidak'}
+                {item.kesesuaian[0].kesesuaian_selesai_audit ? 'Ya' : 'Tidak'}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].skor_selesai_audit}
+                {item.kesesuaian[0].skor_selesai_audit}
               </td>
               <td className="py-2 px-4 border border-gray-400">
-                {row.kesesuaian[0].persentase_kesesuaian_dokumen}%
+                {item.kesesuaian[0].persentase_kesesuaian_dokumen}%
               </td>
             </tr>
           ))}
@@ -305,199 +326,213 @@ const AuditTable: React.FC = () => {
   );
 
   return (
-    <div>
+    <div className="p-8">
+      <h1 className="text-2xl font-semibold mb-6">Data Audit</h1>
       <button
+        className="mb-4 bg-blue-500 text-white py-2 px-4 rounded"
         onClick={() => setIsModalOpen(true)}
-        className="bg-blue-500 text-white py-2 px-4 rounded mb-4"
       >
-        Tambah Audit
+        Tambah Data
       </button>
 
+      <h2 className="text-xl font-semibold mt-8 mb-4">Data Audit Domestik</h2>
       {renderTable('Domestik')}
+
+      <h2 className="text-xl font-semibold mt-8 mb-4">
+        Data Audit Luar Negeri
+      </h2>
       {renderTable('Luar Negeri')}
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded shadow-md">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+          <div className="bg-white p-8 rounded shadow-md w-full max-w-4xl max-h-[90vh] overflow-y-auto">
             <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label className="block text-gray-700">Auditan:</label>
-                <input
-                  type="text"
-                  name="auditan"
-                  value={formData.auditan}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
+              {/* Form fields */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="mb-4">
+                  <label className="block text-gray-700">Auditan:</label>
+                  <input
+                    type="text"
+                    name="auditan"
+                    value={formData.auditan}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Kategori:</label>
+                  <select
+                    name="kategori"
+                    value={formData.kategori}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  >
+                    <option value="">Pilih Kategori</option>
+                    <option value="Domestik">Domestik</option>
+                    <option value="Luar Negeri">Luar Negeri</option>
+                  </select>
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">
+                    Nomor Surat Tugas:
+                  </label>
+                  <input
+                    type="text"
+                    name="no_surat_tugas"
+                    value={formData.no_surat_tugas}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Tanggal Mulai:</label>
+                  <input
+                    type="date"
+                    name="tanggal_mulai"
+                    value={formData.tanggal_mulai}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">
+                    Tanggal Selesai:
+                  </label>
+                  <input
+                    type="date"
+                    name="tanggal_selesai"
+                    value={formData.tanggal_selesai}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Jumlah Orang:</label>
+                  <input
+                    type="number"
+                    name="jumlah_orang"
+                    value={formData.jumlah_orang}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">
+                    Inspektur Hadir:
+                  </label>
+                  <input
+                    type="checkbox"
+                    name="inspektur_hadir"
+                    checked={formData.inspektur_hadir}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        inspektur_hadir: e.target.checked,
+                      })
+                    }
+                    className="border border-gray-300 p-2"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Tanggal Surat:</label>
+                  <input
+                    type="date"
+                    name="tanggal_surat"
+                    value={formData.tanggal_surat}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">
+                    Tanggal Tindak Lanjut:
+                  </label>
+                  <input
+                    type="date"
+                    name="tanggal_tindak_lanjut"
+                    value={formData.tanggal_tindak_lanjut}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">
+                    Tanggal Verifikasi:
+                  </label>
+                  <input
+                    type="date"
+                    name="tanggal_verifikasi"
+                    value={formData.tanggal_verifikasi}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">
+                    Tanggal BA Exit:
+                  </label>
+                  <input
+                    type="date"
+                    name="tanggal_ba_exit"
+                    value={formData.tanggal_ba_exit}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">
+                    Tanggal Terbit IHA:
+                  </label>
+                  <input
+                    type="date"
+                    name="tanggal_terbit_iha"
+                    value={formData.tanggal_terbit_iha}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">
+                    Tanggal Terbit LHA:
+                  </label>
+                  <input
+                    type="date"
+                    name="tanggal_terbit_lha"
+                    value={formData.tanggal_terbit_lha}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">
+                    Tanggal Selesai TL:
+                  </label>
+                  <input
+                    type="date"
+                    name="tanggal_selesai_tl"
+                    value={formData.tanggal_selesai_tl}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">
+                    Tanggal Surat Selesai:
+                  </label>
+                  <input
+                    type="date"
+                    name="tanggal_surat_selesai"
+                    value={formData.tanggal_surat_selesai}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Kategori:</label>
-                <select
-                  name="kategori"
-                  value={formData.kategori}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                >
-                  <option value="">Pilih Kategori</option>
-                  <option value="Domestik">Domestik</option>
-                  <option value="Luar Negeri">Luar Negeri</option>
-                </select>
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">
-                  Nomor Surat Tugas:
-                </label>
-                <input
-                  type="text"
-                  name="no_surat_tugas"
-                  value={formData.no_surat_tugas}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Tanggal Mulai:</label>
-                <input
-                  type="date"
-                  name="tanggal_mulai"
-                  value={formData.tanggal_mulai}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Tanggal Selesai:</label>
-                <input
-                  type="date"
-                  name="tanggal_selesai"
-                  value={formData.tanggal_selesai}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Jumlah Orang:</label>
-                <input
-                  type="number"
-                  name="jumlah_orang"
-                  value={formData.jumlah_orang}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Inspektur Hadir:</label>
-                <input
-                  type="checkbox"
-                  name="inspektur_hadir"
-                  checked={formData.inspektur_hadir}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      inspektur_hadir: e.target.checked,
-                    })
-                  }
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Tanggal Surat:</label>
-                <input
-                  type="date"
-                  name="tanggal_surat"
-                  value={formData.tanggal_surat}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">
-                  Tanggal Tindak Lanjut:
-                </label>
-                <input
-                  type="date"
-                  name="tanggal_tindak_lanjut"
-                  value={formData.tanggal_tindak_lanjut}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">
-                  Tanggal Verifikasi:
-                </label>
-                <input
-                  type="date"
-                  name="tanggal_verifikasi"
-                  value={formData.tanggal_verifikasi}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Tanggal BA Exit:</label>
-                <input
-                  type="date"
-                  name="tanggal_ba_exit"
-                  value={formData.tanggal_ba_exit}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">
-                  Tanggal Terbit IHA:
-                </label>
-                <input
-                  type="date"
-                  name="tanggal_terbit_iha"
-                  value={formData.tanggal_terbit_iha}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">
-                  Tanggal Terbit LHA:
-                </label>
-                <input
-                  type="date"
-                  name="tanggal_terbit_lha"
-                  value={formData.tanggal_terbit_lha}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">
-                  Tanggal Selesai TL:
-                </label>
-                <input
-                  type="date"
-                  name="tanggal_selesai_tl"
-                  value={formData.tanggal_selesai_tl}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">
-                  Tanggal Surat Selesai:
-                </label>
-                <input
-                  type="date"
-                  name="tanggal_surat_selesai"
-                  value={formData.tanggal_surat_selesai}
-                  onChange={handleInputChange}
-                  className="border border-gray-300 p-2 w-full"
-                />
-              </div>
-
               <div className="flex justify-end">
                 <button
                   type="button"
+                  className="mr-4 bg-gray-500 text-white py-2 px-4 rounded"
                   onClick={() => setIsModalOpen(false)}
-                  className="bg-gray-500 text-white py-2 px-4 rounded mr-2"
                 >
                   Batal
                 </button>
@@ -517,4 +552,3 @@ const AuditTable: React.FC = () => {
 };
 
 export default AuditTable;
-
