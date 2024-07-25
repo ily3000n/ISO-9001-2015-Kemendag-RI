@@ -105,8 +105,8 @@ const Home = () => {
   ];
 
   const domainData = [
-    { nomor: 1, type: 'Domestik', persentase: domesticPercentage },
-    { nomor: 2, type: 'Luar Negeri', persentase: foreignPercentage },
+    { nomor: 1, type: 'Dana Dekonsentrasi', persentase: domesticPercentage },
+    { nomor: 2, type: 'Perwakilan Perdagangan', persentase: foreignPercentage },
   ];
 
   return (

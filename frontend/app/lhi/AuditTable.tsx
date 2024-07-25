@@ -167,10 +167,10 @@ const AuditTable: React.FC = () => {
           <th className="py-2 px-4 border border-gray-400" colSpan={5}>
             5. Penyelesaian IHA dan LHA
           </th>
-          <th className="py-2 px-4 border border-gray-400" colSpan={4}>
+          <th className="py-2 px-4 border border-gray-400" colSpan={3}>
             6. Penyampaian bukti TL
           </th>
-          <th className="py-2 px-4 border border-gray-400" colSpan={2}>
+          <th className="py-2 px-4 border border-gray-400" colSpan={3}>
             7. Surat Selesai Audit
           </th>
           <th className="py-2 px-4 border border-gray-400" rowSpan={2}>
@@ -335,11 +335,11 @@ const AuditTable: React.FC = () => {
         Tambah Data
       </button>
 
-      <h2 className="text-xl font-semibold mt-8 mb-4">Data Audit Domestik</h2>
+      <h2 className="text-xl font-semibold mt-8 mb-4">Dana Dekonsentrasi</h2>
       {renderTable('Domestik')}
 
       <h2 className="text-xl font-semibold mt-8 mb-4">
-        Data Audit Luar Negeri
+        Perwakilan Perdagangan
       </h2>
       {renderTable('Luar Negeri')}
 
