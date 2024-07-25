@@ -21,8 +21,21 @@ const Home = () => {
     null
   );
 
-  // Fetch percentages from API
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
   useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      window.location.href =
+        'https://iso-9001-2015-kemendag-ri.vercel.app/login';
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isLoggedIn) return;
+
     const fetchPercentages = async () => {
       try {
         const token = sessionStorage.getItem('token');
@@ -92,7 +105,11 @@ const Home = () => {
     };
 
     fetchPercentages();
-  }, []);
+  }, [isLoggedIn]);
+
+  if (!isLoggedIn) {
+    return null;
+  }
 
   const components = [
     'Surat Pemberitahuan Audit dikirim minimal 10 hari kerja sebelum audit dilaksanakan',
