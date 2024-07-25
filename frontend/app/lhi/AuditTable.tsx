@@ -62,7 +62,7 @@ const AuditTable: React.FC = () => {
   const [formData, setFormData] = useState({
     auditan: '',
     kategori: '',
-    no_surat_tugas: '',
+    no_surat_tugas: '12345',
     tanggal_mulai: '',
     tanggal_selesai: '',
     jumlah_orang: 0,
@@ -147,7 +147,7 @@ const AuditTable: React.FC = () => {
   const handleDelete = async (id: number) => {
     const token = sessionStorage.getItem('token');
     try {
-      await axios.delete(
+      const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/audit/${id}`,
         {
           headers: {
@@ -155,12 +155,14 @@ const AuditTable: React.FC = () => {
           },
         }
       );
-      setData(data.filter((item) => item.ID !== id));
+      if (response.status === 200) {
+        console.log('Delete successful');
+        setData(data.filter((item) => item.ID !== id));
+      }
     } catch (error) {
       console.error('Error deleting data', error);
     }
   };
-
   const renderTable = (category: string) => (
     <table className="min-w-full bg-white border-collapse border border-gray-400 mb-8">
       <thead>
@@ -171,9 +173,7 @@ const AuditTable: React.FC = () => {
           <th className="py-2 px-4 border border-gray-400" rowSpan={2}>
             Auditan
           </th>
-          <th className="py-2 px-4 border border-gray-400" rowSpan={2}>
-            Nomor Surat Tugas
-          </th>
+
           <th className="py-2 px-4 border border-gray-400" colSpan={2}>
             Tanggal
           </th>
@@ -207,14 +207,14 @@ const AuditTable: React.FC = () => {
           <th className="py-2 px-4 border border-gray-400">Selesai</th>
           <th className="py-2 px-4 border border-gray-400">Tanggal Surat</th>
           <th className="py-2 px-4 border border-gray-400">Jumlah Hari</th>
-          <th className="py-2 px-4 border border-gray-400">Kesesuaian</th>
+          <th className="py-2 px-4 border border-gray-400">Sesuai</th>
 
           <th className="py-2 px-4 border border-gray-400">Jumlah Hari</th>
-          <th className="py-2 px-4 border border-gray-400">Kesesuaian</th>
+          <th className="py-2 px-4 border border-gray-400">Sesuai</th>
 
           <th className="py-2 px-4 border border-gray-400">Inspektur</th>
           <th className="py-2 px-4 border border-gray-400">Jumlah Orang</th>
-          <th className="py-2 px-4 border border-gray-400">Kesesuaian</th>
+          <th className="py-2 px-4 border border-gray-400">Sesuai</th>
 
           <th className="py-2 px-4 border border-gray-400">
             Tanggal Tindak Lanjut
@@ -222,7 +222,7 @@ const AuditTable: React.FC = () => {
           <th className="py-2 px-4 border border-gray-400">
             Tanggal Verifikasi
           </th>
-          <th className="py-2 px-4 border border-gray-400">Kesesuaian</th>
+          <th className="py-2 px-4 border border-gray-400">Sesuai</th>
 
           <th className="py-2 px-4 border border-gray-400">Tanggal BA Exit</th>
           <th className="py-2 px-4 border border-gray-400">
@@ -231,17 +231,17 @@ const AuditTable: React.FC = () => {
           <th className="py-2 px-4 border border-gray-400">
             Tanggal Terbit LHA
           </th>
-          <th className="py-2 px-4 border border-gray-400">Kesesuaian</th>
+          <th className="py-2 px-4 border border-gray-400">Sesuai</th>
 
           <th className="py-2 px-4 border border-gray-400">
             Tanggal Selesai TL
           </th>
-          <th className="py-2 px-4 border border-gray-400">Kesesuaian</th>
+          <th className="py-2 px-4 border border-gray-400">Sesuai</th>
 
           <th className="py-2 px-4 border border-gray-400">
             Tanggal Selesai Audit
           </th>
-          <th className="py-2 px-4 border border-gray-400">Kesesuaian</th>
+          <th className="py-2 px-4 border border-gray-400">Sesuai</th>
         </tr>
       </thead>
       <tbody>
@@ -253,9 +253,7 @@ const AuditTable: React.FC = () => {
               <td className="py-2 px-4 border border-gray-400">
                 {item.auditan}
               </td>
-              <td className="py-2 px-4 border border-gray-400">
-                {item.no_surat_tugas}
-              </td>
+
               <td className="py-2 px-4 border border-gray-400 text-nowrap">
                 {formatDateReadable(item.tanggal_mulai)}
               </td>
@@ -390,18 +388,7 @@ const AuditTable: React.FC = () => {
                     <option value="Luar Negeri">Luar Negeri</option>
                   </select>
                 </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700">
-                    Nomor Surat Tugas:
-                  </label>
-                  <input
-                    type="text"
-                    name="no_surat_tugas"
-                    value={formData.no_surat_tugas}
-                    onChange={handleInputChange}
-                    className="border border-gray-300 p-2 w-full"
-                  />
-                </div>
+
                 <div className="mb-4">
                   <label className="block text-gray-700">Tanggal Mulai:</label>
                   <input
