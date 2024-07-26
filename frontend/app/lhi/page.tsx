@@ -153,11 +153,12 @@ const Home = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container px-2">
       <h1 className="text-2xl font-bold mb-4">Audit Table</h1>
       <div ref={tableRef}>
-        <AuditTable />
+        
       </div>
+      <AuditTable />
       <button
         onClick={downloadPDF}
         className="mt-4 py-2 px-4 bg-blue-500 text-white rounded"
@@ -165,10 +166,46 @@ const Home = () => {
         Download PDF
       </button>
 
-      <h1 className="text-2xl font-bold mt-8 mb-4">PERSENTASE KOMPONEN</h1>
+      <h1 className="text-2xl font-bold mt-8 mb-4">PERSENTASE KOMPONEN DANA DEKONSENTRASI</h1>
       <table className="min-w-full border-collapse border border-gray-400">
         <thead>
-          <tr>
+          <tr  className='bg-blue-950 text-white'>
+            <th className="py-2 px-4 border border-gray-400">No</th>
+            <th className="py-2 px-4 border border-gray-400">Komponen</th>
+            <th className="py-2 px-4 border border-gray-400">Persentase</th>
+          </tr>
+        </thead>
+        <tbody>
+          {components.map((component, index) => {
+            const point = [
+              'Surat',
+              'Pelaksanaan',
+              'SDM',
+              'Verifikasi',
+              'IHA',
+              'Bukti TL',
+              'Selesai Audit',
+            ][index];
+            return (
+              <tr key={index}>
+                <td className="py-2 px-4 border border-gray-400">
+                  {index + 1}
+                </td>
+                <td className="py-2 px-4 border border-gray-400">
+                  {component}
+                </td>
+                <td className="py-2 px-4 border border-gray-400">
+                  {percentages[point] ? `${percentages[point]}%` : '-'}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <h1 className="text-2xl font-bold mt-8 mb-4">PERSENTASE KOMPONEN PERWAKILAN PERDAGANGAN  </h1>
+      <table className="min-w-full border-collapse border border-gray-400">
+        <thead>
+          <tr className='bg-blue-950 text-white'>
             <th className="py-2 px-4 border border-gray-400">No</th>
             <th className="py-2 px-4 border border-gray-400">Komponen</th>
             <th className="py-2 px-4 border border-gray-400">Persentase</th>
@@ -203,11 +240,11 @@ const Home = () => {
       </table>
 
       <h1 className="text-2xl font-bold mt-8 mb-4">
-        PERSENTASE DOMESTIK DAN LUAR NEGERI
+        PERSENTASE DANA DEKONSENTRASI DAN PERWAKILAN PERDAGANGAN
       </h1>
       <table className="min-w-full border-collapse border border-gray-400">
         <thead>
-          <tr>
+          <tr  className='bg-blue-950 text-white'>
             <th className="py-2 px-4 border border-gray-400">No</th>
             <th className="py-2 px-4 border border-gray-400">Jenis Anggaran</th>
             <th className="py-2 px-4 border border-gray-400">Persentase</th>

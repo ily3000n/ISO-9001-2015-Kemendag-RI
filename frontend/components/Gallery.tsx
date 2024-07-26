@@ -86,15 +86,10 @@ const Gallery = () => {
               </BoxReveal>
               <TypewriterEffectSmooth words={words} />
               <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-4">
-                {/* Uncomment buttons if needed */}
-                {/* 
-                <button className="w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
-                  Join now
-                </button>
-                <button className="w-40 h-10 rounded-xl bg-white text-black border border-black text-sm">
-                  Signup
-                </button> 
-                */}
+              <button  className="px-12 py-4 rounded-full bg-green-600 font-bold text-white tracking-widest uppercase transform hover:scale-105 hover:bg-[#21e065] transition-colors duration-200" 
+              onClick={() => window.location.href = '/login'}>
+                    LOGIN
+                  </button>
               </div>
             </div>
           </motion.div>
