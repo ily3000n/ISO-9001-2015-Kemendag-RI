@@ -75,6 +75,12 @@ const AuditTable: React.FC = () => {
     tanggal_terbit_lha: '',
     tanggal_selesai_tl: '',
     tanggal_surat_selesai: '',
+    hari_libur_surat: '',
+    hari_libur_verifikasi: '',
+    hari_libur_iha: '',
+    hari_libur_bukti_tl: '',
+    hari_libur_selesai: '',
+    
   });
 
   useEffect(() => {
@@ -355,6 +361,16 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Total hari libur dan/atau cuti </label>
+                  <input
+                    type="number"
+                    name="hari_libur_surat"
+                    value={formData.hari_libur_surat}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
                 <h1 className='font-extrabold'> 3.Jumlah Sumber Daya Manusia dalam Pelaksanaan Audit				
 				
                 </h1>
@@ -413,6 +429,16 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Total hari libur dan/atau cuti </label>
+                  <input
+                    type="number"
+                    name="hari_libur_verifikasi"
+                    value={formData.hari_libur_verifikasi}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
                 <h1 className='font-extrabold'> 5. Penyelesaian IHA dan LHA maksimal 10 hari kerja setelah BA Exit					
 
                 </h1>
@@ -452,6 +478,16 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Total hari libur dan/atau cuti </label>
+                  <input
+                    type="number"
+                    name="hari_libur_iha"
+                    value={formData.hari_libur_iha}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
                 <h1 className='font-extrabold'>6. Unit Kerja menyampaikan bukti TL pada Aplikasi SI PINTAR maksimal 40 hari kerja setelah BA Exit				
 
                 </h1>
@@ -467,6 +503,16 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Total hari libur dan/atau cuti </label>
+                  <input
+                    type="number"
+                    name="hari_libur_bukti_tl"
+                    value={formData.hari_libur_bukti_tl}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
                 <h1 className='font-extrabold'>7. Sekretariat Itjen membuat Surat Selesai Audit maksimal 7 hari kerja setelah Seluruh Tl dinyatakan selesai				
 
                 </h1>
@@ -478,6 +524,16 @@ const AuditTable: React.FC = () => {
                     type="date"
                     name="tanggal_surat_selesai"
                     value={formData.tanggal_surat_selesai}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 p-2 w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Total hari libur dan/atau cuti </label>
+                  <input
+                    type="number"
+                    name="hari_libur_selesai"
+                    value={formData.hari_libur_selesai}
                     onChange={handleInputChange}
                     className="border border-gray-300 p-2 w-full"
                   />
