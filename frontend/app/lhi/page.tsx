@@ -67,6 +67,7 @@ const Home = () => {
             sessionStorage.removeItem('token');
             window.location.href =
               'https://iso-9001-2015-kemendag-ri.vercel.app/login';
+            return;
           }
         };
 

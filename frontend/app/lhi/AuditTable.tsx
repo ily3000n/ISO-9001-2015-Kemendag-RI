@@ -41,6 +41,11 @@ interface Data {
   tanggal_selesai_tl: string;
   tanggal_surat_selesai: string;
   kesesuaian: Kesesuaian[];
+  hari_libur_surat: number;
+  hari_libur_verifikasi: number;
+  hari_libur_iha: number;
+  hari_libur_bukti_tl: number;
+  hari_libur_selesai: number;
 }
 
 const formatDate = (dateString: string): string => {
@@ -75,12 +80,11 @@ const AuditTable: React.FC = () => {
     tanggal_terbit_lha: '',
     tanggal_selesai_tl: '',
     tanggal_surat_selesai: '',
-    hari_libur_surat: '',
-    hari_libur_verifikasi: '',
-    hari_libur_iha: '',
-    hari_libur_bukti_tl: '',
-    hari_libur_selesai: '',
-    
+    hari_libur_surat: 0,
+    hari_libur_verifikasi: 0,
+    hari_libur_iha: 0,
+    hari_libur_bukti_tl: 0,
+    hari_libur_selesai: 0,
   });
 
   useEffect(() => {
@@ -132,6 +136,14 @@ const AuditTable: React.FC = () => {
       tanggal_selesai_tl: formatDate(formData.tanggal_selesai_tl),
       tanggal_surat_selesai: formatDate(formData.tanggal_surat_selesai),
       jumlah_orang: parseInt(formData.jumlah_orang as any, 10),
+      hari_libur_surat: parseInt(formData.hari_libur_surat as any, 10),
+      hari_libur_verifikasi: parseInt(
+        formData.hari_libur_verifikasi as any,
+        10
+      ),
+      hari_libur_iha: parseInt(formData.hari_libur_iha as any, 10),
+      hari_libur_bukti_tl: parseInt(formData.hari_libur_bukti_tl as any, 10),
+      hari_libur_selesai: parseInt(formData.hari_libur_selesai as any, 10),
     };
 
     try {
@@ -170,113 +182,238 @@ const AuditTable: React.FC = () => {
     }
   };
   const renderTable = (category: string) => (
-    
-      <table className="min-w-full bg-white border-collapse border border-gray-400 mb-8 shadow-lg">
-        <thead className="bg-blue-950">
-          <tr className='text-white'>
-            <th className="py-2 px-4 border border-gray-400 text-center" rowSpan={2}>
-              No
-            </th>
-            <th className="py-2 px-4 border border-gray-400 text-center" rowSpan={2}>
-              Auditan
-            </th>
-            <th className="py-2 px-4 border border-gray-400 text-center" colSpan={2}>
-              Tanggal
-            </th>
-            <th className="py-2 px-4 border border-gray-400 text-center" colSpan={3}>
-              1. Surat Pemberitahuan Audit
-            </th>
-            <th className="py-2 px-4 border border-gray-400 text-center" colSpan={2}>
-              2. Jumlah hari pelaksanaan Audit
-            </th>
-            <th className="py-2 px-4 border border-gray-400 text-center" colSpan={3}>
-              3. Jumlah Sumber Daya Manusia
-            </th>
-            <th className="py-2 px-4 border border-gray-400 text-center" colSpan={3}>
-              4. Verifikasi Tindak Lanjut
-            </th>
-            <th className="py-2 px-4 border border-gray-400 text-center" colSpan={4}>
-              5. Penyelesaian IHA dan LHA
-            </th>
-            <th className="py-2 px-4 border border-gray-400 text-center" colSpan={2}>
-              6. Penyampaian bukti TL
-            </th>
-            <th className="py-2 px-4 border border-gray-400 text-center" colSpan={2}>
-              7. Surat Selesai Audit
-            </th>
-            <th className="py-2 px-4 border border-gray-400 text-center" rowSpan={2}>
-              Persentase Kesesuaian
-            </th>
-            <th className="py-2 px-4 text-center" rowSpan={2}>
-             
-            </th>
-          </tr>
-          <tr className='text-white'>
-            <th className="py-2 px-4 border border-gray-400 text-center">Mulai</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Selesai</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Tanggal Surat</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Jumlah Hari</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Sesuai</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Jumlah Hari</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Sesuai</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Inspektur</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Jumlah Orang</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Sesuai</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Tanggal Tindak Lanjut</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Tanggal Verifikasi</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Sesuai</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Tanggal BA Exit</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Tanggal Terbit IHA</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Tanggal Terbit LHA</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Sesuai</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Tanggal Selesai TL</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Sesuai</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Tanggal Selesai Audit</th>
-            <th className="py-2 px-4 border border-gray-400 text-center">Sesuai</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data
-            .filter((item) => item.kategori === category)
-            .map((item, index) => (
-              <tr key={item.ID} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white hover:bg-gray-100'}>
-                <td className="py-2 px-4 border border-gray-400 text-center">{index + 1}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.auditan}</td>
-                <td className="py-2 px-4 border border-gray-400 text-nowrap">{formatDateReadable(item.tanggal_mulai)}</td>
-                <td className="py-2 px-4 border border-gray-400 text-nowrap">{formatDateReadable(item.tanggal_selesai)}</td>
-                <td className="py-2 px-4 border border-gray-400 text-nowrap">{formatDateReadable(item.tanggal_surat)}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.kesesuaian[0].jumlah_hari_surat}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.kesesuaian[0].kesesuaian_surat ? 'Ya' : 'Tidak'}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.kesesuaian[0].jumlah_hari_pelaksanaan}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.kesesuaian[0].kesesuaian_pelaksanaan ? 'Ya' : 'Tidak'}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.inspektur_hadir ? 'Ya' : 'Tidak'}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.jumlah_orang}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.kesesuaian[0].kesesuaian_sdm ? 'Ya' : 'Tidak'}</td>
-                <td className="py-2 px-4 border border-gray-400 text-nowrap">{formatDateReadable(item.tanggal_tindak_lanjut)}</td>
-                <td className="py-2 px-4 border border-gray-400 text-nowrap">{formatDateReadable(item.tanggal_verifikasi)}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.kesesuaian[0].kesesuaian_verifikasi ? 'Ya' : 'Tidak'}</td>
-                <td className="py-2 px-4 border border-gray-400 text-nowrap">{formatDateReadable(item.tanggal_ba_exit)}</td>
-                <td className="py-2 px-4 border border-gray-400 text-nowrap">{formatDateReadable(item.tanggal_terbit_iha)}</td>
-                <td className="py-2 px-4 border border-gray-400 text-nowrap">{formatDateReadable(item.tanggal_terbit_lha)}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.kesesuaian[0].kesesuaian_iha ? 'Ya' : 'Tidak'}</td>
-                <td className="py-2 px-4 border border-gray-400 text-nowrap">{formatDateReadable(item.tanggal_selesai_tl)}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.kesesuaian[0].kesesuaian_bukti_tl ? 'Ya' : 'Tidak'}</td>
-                <td className="py-2 px-4 border border-gray-400 text-nowrap">{formatDateReadable(item.tanggal_surat_selesai)}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.kesesuaian[0].kesesuaian_selesai_audit ? 'Ya' : 'Tidak'}</td>
-                <td className="py-2 px-4 border border-gray-400">{item.kesesuaian[0].persentase_kesesuaian_dokumen}%</td>
-                <td className="py-2 px-4 border border-gray-400 bg-blue-950">
-                  <button className="bg-red-500 text-white rounded-lg p-2 hover:bg-red-600" onClick={() => handleDelete(item.ID)}>
-                    Hapus
-                  </button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-    );
-    
- 
-  
+    <table className="min-w-full bg-white border-collapse border border-gray-400 mb-8 shadow-lg">
+      <thead className="bg-blue-950">
+        <tr className="text-white">
+          <th
+            className="py-2 px-4 border border-gray-400 text-center"
+            rowSpan={2}
+          >
+            No
+          </th>
+          <th
+            className="py-2 px-4 border border-gray-400 text-center"
+            rowSpan={2}
+          >
+            Auditan
+          </th>
+          <th
+            className="py-2 px-4 border border-gray-400 text-center"
+            colSpan={2}
+          >
+            Tanggal
+          </th>
+          <th
+            className="py-2 px-4 border border-gray-400 text-center"
+            colSpan={3}
+          >
+            1. Surat Pemberitahuan Audit
+          </th>
+          <th
+            className="py-2 px-4 border border-gray-400 text-center"
+            colSpan={2}
+          >
+            2. Jumlah hari pelaksanaan Audit
+          </th>
+          <th
+            className="py-2 px-4 border border-gray-400 text-center"
+            colSpan={3}
+          >
+            3. Jumlah Sumber Daya Manusia
+          </th>
+          <th
+            className="py-2 px-4 border border-gray-400 text-center"
+            colSpan={3}
+          >
+            4. Verifikasi Tindak Lanjut
+          </th>
+          <th
+            className="py-2 px-4 border border-gray-400 text-center"
+            colSpan={4}
+          >
+            5. Penyelesaian IHA dan LHA
+          </th>
+          <th
+            className="py-2 px-4 border border-gray-400 text-center"
+            colSpan={2}
+          >
+            6. Penyampaian bukti TL
+          </th>
+          <th
+            className="py-2 px-4 border border-gray-400 text-center"
+            colSpan={2}
+          >
+            7. Surat Selesai Audit
+          </th>
+          <th
+            className="py-2 px-4 border border-gray-400 text-center"
+            rowSpan={2}
+          >
+            Persentase Kesesuaian
+          </th>
+          <th className="py-2 px-4 text-center" rowSpan={2}></th>
+        </tr>
+        <tr className="text-white">
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Mulai
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Selesai
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Tanggal Surat
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Jumlah Hari
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Sesuai
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Jumlah Hari
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Sesuai
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Inspektur
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Jumlah Orang
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Sesuai
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Tanggal Tindak Lanjut
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Tanggal Verifikasi
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Sesuai
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Tanggal BA Exit
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Tanggal Terbit IHA
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Tanggal Terbit LHA
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Sesuai
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Tanggal Selesai TL
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Sesuai
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Tanggal Selesai Audit
+          </th>
+          <th className="py-2 px-4 border border-gray-400 text-center">
+            Sesuai
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {data
+          .filter((item) => item.kategori === category)
+          .map((item, index) => (
+            <tr
+              key={item.ID}
+              className={
+                index % 2 === 0 ? 'bg-gray-50' : 'bg-white hover:bg-gray-100'
+              }
+            >
+              <td className="py-2 px-4 border border-gray-400 text-center">
+                {index + 1}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.auditan}
+              </td>
+              <td className="py-2 px-4 border border-gray-400 text-nowrap">
+                {formatDateReadable(item.tanggal_mulai)}
+              </td>
+              <td className="py-2 px-4 border border-gray-400 text-nowrap">
+                {formatDateReadable(item.tanggal_selesai)}
+              </td>
+              <td className="py-2 px-4 border border-gray-400 text-nowrap">
+                {formatDateReadable(item.tanggal_surat)}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.kesesuaian[0].jumlah_hari_surat}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.kesesuaian[0].kesesuaian_surat ? 'Ya' : 'Tidak'}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.kesesuaian[0].jumlah_hari_pelaksanaan}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.kesesuaian[0].kesesuaian_pelaksanaan ? 'Ya' : 'Tidak'}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.inspektur_hadir ? 'Ya' : 'Tidak'}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.jumlah_orang}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.kesesuaian[0].kesesuaian_sdm ? 'Ya' : 'Tidak'}
+              </td>
+              <td className="py-2 px-4 border border-gray-400 text-nowrap">
+                {formatDateReadable(item.tanggal_tindak_lanjut)}
+              </td>
+              <td className="py-2 px-4 border border-gray-400 text-nowrap">
+                {formatDateReadable(item.tanggal_verifikasi)}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.kesesuaian[0].kesesuaian_verifikasi ? 'Ya' : 'Tidak'}
+              </td>
+              <td className="py-2 px-4 border border-gray-400 text-nowrap">
+                {formatDateReadable(item.tanggal_ba_exit)}
+              </td>
+              <td className="py-2 px-4 border border-gray-400 text-nowrap">
+                {formatDateReadable(item.tanggal_terbit_iha)}
+              </td>
+              <td className="py-2 px-4 border border-gray-400 text-nowrap">
+                {formatDateReadable(item.tanggal_terbit_lha)}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.kesesuaian[0].kesesuaian_iha ? 'Ya' : 'Tidak'}
+              </td>
+              <td className="py-2 px-4 border border-gray-400 text-nowrap">
+                {formatDateReadable(item.tanggal_selesai_tl)}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.kesesuaian[0].kesesuaian_bukti_tl ? 'Ya' : 'Tidak'}
+              </td>
+              <td className="py-2 px-4 border border-gray-400 text-nowrap">
+                {formatDateReadable(item.tanggal_surat_selesai)}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.kesesuaian[0].kesesuaian_selesai_audit ? 'Ya' : 'Tidak'}
+              </td>
+              <td className="py-2 px-4 border border-gray-400">
+                {item.kesesuaian[0].persentase_kesesuaian_dokumen}%
+              </td>
+              <td className="py-2 px-4 border border-gray-400 bg-blue-950">
+                <button
+                  className="bg-red-500 text-white rounded-lg p-2 hover:bg-red-600"
+                  onClick={() => handleDelete(item.ID)}
+                >
+                  Hapus
+                </button>
+              </td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  );
 
   return (
     <div className="p-8">
@@ -302,7 +439,7 @@ const AuditTable: React.FC = () => {
             <form onSubmit={handleSubmit}>
               {/* Form fields */}
               <div className=" ">
-                <h1 className='font-extrabold'> 1. Auditan </h1>
+                <h1 className="font-extrabold"> 1. Auditan </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">Auditan:</label>
                   <input
@@ -349,10 +486,15 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
-                <h1 className='font-extrabold'> 2.Surat Pemberitahuan Audit dikirim minimal 10 hari kerja sebelum audit dilaksanakan				
+                <h1 className="font-extrabold">
+                  {' '}
+                  2.Surat Pemberitahuan Audit dikirim minimal 10 hari kerja
+                  sebelum audit dilaksanakan
                 </h1>
                 <div className="mb-4">
-                  <label className="block text-gray-700">Tanggal Surat Pemberitahuan:</label>
+                  <label className="block text-gray-700">
+                    Tanggal Surat Pemberitahuan:
+                  </label>
                   <input
                     type="date"
                     name="tanggal_surat"
@@ -362,7 +504,9 @@ const AuditTable: React.FC = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700">Total hari libur dan/atau cuti </label>
+                  <label className="block text-gray-700">
+                    Total hari libur dan/atau cuti{' '}
+                  </label>
                   <input
                     type="number"
                     name="hari_libur_surat"
@@ -371,8 +515,9 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
-                <h1 className='font-extrabold'> 3.Jumlah Sumber Daya Manusia dalam Pelaksanaan Audit				
-				
+                <h1 className="font-extrabold">
+                  {' '}
+                  3.Jumlah Sumber Daya Manusia dalam Pelaksanaan Audit
                 </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
@@ -401,9 +546,11 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
-                
-                <h1 className='font-extrabold'> 4. Verifikasi Tindak Lanjut Hasil Audit dilaksanakan maksimal 7 hari kerja				
-				
+
+                <h1 className="font-extrabold">
+                  {' '}
+                  4. Verifikasi Tindak Lanjut Hasil Audit dilaksanakan maksimal
+                  7 hari kerja
                 </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
@@ -430,7 +577,9 @@ const AuditTable: React.FC = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700">Total hari libur dan/atau cuti </label>
+                  <label className="block text-gray-700">
+                    Total hari libur dan/atau cuti{' '}
+                  </label>
                   <input
                     type="number"
                     name="hari_libur_verifikasi"
@@ -439,8 +588,10 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
-                <h1 className='font-extrabold'> 5. Penyelesaian IHA dan LHA maksimal 10 hari kerja setelah BA Exit					
-
+                <h1 className="font-extrabold">
+                  {' '}
+                  5. Penyelesaian IHA dan LHA maksimal 10 hari kerja setelah BA
+                  Exit
                 </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
@@ -479,7 +630,9 @@ const AuditTable: React.FC = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700">Total hari libur dan/atau cuti </label>
+                  <label className="block text-gray-700">
+                    Total hari libur dan/atau cuti{' '}
+                  </label>
                   <input
                     type="number"
                     name="hari_libur_iha"
@@ -488,8 +641,9 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
-                <h1 className='font-extrabold'>6. Unit Kerja menyampaikan bukti TL pada Aplikasi SI PINTAR maksimal 40 hari kerja setelah BA Exit				
-
+                <h1 className="font-extrabold">
+                  6. Unit Kerja menyampaikan bukti TL pada Aplikasi SI PINTAR
+                  maksimal 40 hari kerja setelah BA Exit
                 </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
@@ -504,7 +658,9 @@ const AuditTable: React.FC = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700">Total hari libur dan/atau cuti </label>
+                  <label className="block text-gray-700">
+                    Total hari libur dan/atau cuti{' '}
+                  </label>
                   <input
                     type="number"
                     name="hari_libur_bukti_tl"
@@ -513,8 +669,9 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
-                <h1 className='font-extrabold'>7. Sekretariat Itjen membuat Surat Selesai Audit maksimal 7 hari kerja setelah Seluruh Tl dinyatakan selesai				
-
+                <h1 className="font-extrabold">
+                  7. Sekretariat Itjen membuat Surat Selesai Audit maksimal 7
+                  hari kerja setelah Seluruh Tl dinyatakan selesai
                 </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
@@ -529,7 +686,9 @@ const AuditTable: React.FC = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700">Total hari libur dan/atau cuti </label>
+                  <label className="block text-gray-700">
+                    Total hari libur dan/atau cuti{' '}
+                  </label>
                   <input
                     type="number"
                     name="hari_libur_selesai"
