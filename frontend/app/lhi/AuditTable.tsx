@@ -295,7 +295,8 @@ const AuditTable: React.FC = () => {
           <div className="bg-white p-8 rounded shadow-md w-full max-w-4xl max-h-[90vh] overflow-y-auto">
             <form onSubmit={handleSubmit}>
               {/* Form fields */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className=" ">
+                <h1 className='font-extrabold'> 1. Auditan </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">Auditan:</label>
                   <input
@@ -342,16 +343,21 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
+                <h1 className='font-extrabold'> 2.Surat Pemberitahuan Audit dikirim minimal 10 hari kerja sebelum audit dilaksanakan				
+                </h1>
                 <div className="mb-4">
-                  <label className="block text-gray-700">Jumlah Orang:</label>
+                  <label className="block text-gray-700">Tanggal Surat Pemberitahuan:</label>
                   <input
-                    type="number"
-                    name="jumlah_orang"
-                    value={formData.jumlah_orang}
+                    type="date"
+                    name="tanggal_surat"
+                    value={formData.tanggal_surat}
                     onChange={handleInputChange}
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
+                <h1 className='font-extrabold'> 3.Jumlah Sumber Daya Manusia dalam Pelaksanaan Audit				
+				
+                </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
                     Inspektur Hadir:
@@ -370,15 +376,19 @@ const AuditTable: React.FC = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700">Tanggal Surat:</label>
+                  <label className="block text-gray-700">Jumlah Orang:</label>
                   <input
-                    type="date"
-                    name="tanggal_surat"
-                    value={formData.tanggal_surat}
+                    type="number"
+                    name="jumlah_orang"
+                    value={formData.jumlah_orang}
                     onChange={handleInputChange}
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
+                
+                <h1 className='font-extrabold'> 4. Verifikasi Tindak Lanjut Hasil Audit dilaksanakan maksimal 7 hari kerja				
+				
+                </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
                     Tanggal Tindak Lanjut:
@@ -403,6 +413,9 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
+                <h1 className='font-extrabold'> 5. Penyelesaian IHA dan LHA maksimal 10 hari kerja setelah BA Exit					
+
+                </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
                     Tanggal BA Exit:
@@ -439,6 +452,9 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
+                <h1 className='font-extrabold'>6. Unit Kerja menyampaikan bukti TL pada Aplikasi SI PINTAR maksimal 40 hari kerja setelah BA Exit				
+
+                </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
                     Tanggal Selesai TL:
@@ -451,6 +467,9 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
+                <h1 className='font-extrabold'>7. Sekretariat Itjen membuat Surat Selesai Audit maksimal 7 hari kerja setelah Seluruh Tl dinyatakan selesai				
+
+                </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
                     Tanggal Surat Selesai:
