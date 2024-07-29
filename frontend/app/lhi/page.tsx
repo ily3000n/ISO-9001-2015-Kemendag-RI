@@ -1,8 +1,7 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import AuditTable from './AuditTable';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+
 
 const Home = () => {
   const [domesticPercentages, setDomesticPercentages] = useState<{
@@ -201,12 +200,7 @@ const Home = () => {
       <div ref={tableRef}>
         <AuditTable />
       </div>
-      <button
-        onClick={downloadPDF}
-        className="mt-4 py-2 px-4 bg-blue-500 text-white rounded"
-      >
-        Download PDF
-      </button>
+      
 
       <h1 className="text-2xl font-bold mt-8 mb-4">
         PERSENTASE KOMPONEN DANA DEKONSENTRASI
