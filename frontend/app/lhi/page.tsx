@@ -179,20 +179,7 @@ const Home = () => {
     },
   ];
 
-  const downloadPDF = async () => {
-    if (tableRef.current) {
-      const canvas = await html2canvas(tableRef.current, {
-        scale: 2, // Optional: Increase scale for better quality
-      });
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('l', 'mm', 'a4'); // A4 size in landscape
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('audit-table.pdf');
-    }
-  };
+  
 
   return (
     <div className="container px-2">
