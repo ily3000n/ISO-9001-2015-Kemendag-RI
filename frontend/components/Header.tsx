@@ -30,9 +30,9 @@ const Header = () => {
                 1000,
               ]}
               speed={50}
-              style={{ fontSize: '2rem' }}
+              style={{ fontSize: '' }}
               repeat={Infinity}
-              className="md:text-3xl text-2xl lg:text-md font-bold text-blue-950 text-left"
+              className="md:text-3xl sm:text-3xl lg:text-md font-bold text-blue-950 text-left"
             />
           {/* </h1> */}
         </div>
