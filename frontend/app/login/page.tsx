@@ -52,7 +52,9 @@ const LoginPage: React.FC = () => {
         {/* Bagian Kiri */}
         <div className="w-1/2 p-10">
           <div className="flex items-center justify-center mb-8">
+          <a href="/">
             <Image src="/logo.svg" alt="Logo" width={300} height={300} />
+            </a>
           </div>
           <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
             Login
