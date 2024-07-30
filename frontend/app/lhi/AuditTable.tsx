@@ -199,13 +199,13 @@ const AuditTable: React.FC = () => {
       <thead className="bg-blue-950">
         <tr className="text-white">
           <th
-            className="py-2 px-4 border border-gray-400 text-center"
+            className="py-2 px-4 border border-gray-400 text-center sticky left-0 bg-blue-950 z-10"
             rowSpan={2}
           >
             No
           </th>
           <th
-            className="py-2 px-4 border border-gray-400 text-center"
+            className="py-2 px-4 border border-gray-400 text-center sticky left-16 bg-blue-950 z-10"
             rowSpan={2}
           >
             Auditan
@@ -342,10 +342,10 @@ const AuditTable: React.FC = () => {
                 index % 2 === 0 ? 'bg-gray-50' : 'bg-white hover:bg-gray-100'
               }
             >
-              <td className="py-2 px-4 border border-gray-400 text-center">
+              <td className="py-2 px-4 border border-gray-400 text-center sticky left-0 bg-white">
                 {index + 1}
               </td>
-              <td className="py-2 px-4 border border-gray-400">
+              <td className="py-2 px-4 border border-gray-400 sticky left-16 bg-white">
                 {item.auditan}
               </td>
               <td className="py-2 px-4 border border-gray-400 text-nowrap">
