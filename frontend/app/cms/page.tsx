@@ -40,7 +40,7 @@ const CMSPage: React.FC = () => {
         return (
           <div className="flex-1 p-8">
             <h2 className="text-2xl font-bold mb-4">Konten Utama Dashboard</h2>
-            <p>Ini adalah area konten utama untuk halaman Dashboard Anda.</p>
+            <p>Ini adalah area konten utama untuk halaman Dashboard </p>
           </div>
         );
       case 'documents':
