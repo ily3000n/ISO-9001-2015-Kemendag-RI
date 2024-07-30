@@ -134,6 +134,7 @@ const AuditTable: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = sessionStorage.getItem('token');
+    
 
     // Konversi format tanggal
     const formattedData = {
@@ -174,6 +175,7 @@ const AuditTable: React.FC = () => {
     } catch (error) {
       console.error('Error submitting data', error);
     }
+    window.location.reload();
   };
   const handleDelete = async (id: number) => {
     const token = sessionStorage.getItem('token');
