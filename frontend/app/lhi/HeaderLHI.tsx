@@ -8,13 +8,16 @@ const Header = () => {
     <div className="h-full w-full bg-blue-950 flex items-center justify-center p-3 text-white ">
       <div className="flex items-center w-full justify-between">
         <div className="flex items-center justify-start w-2/4">
+        <a href="/">
           <Image 
             src="/logo_textwhite.svg" // Replace with the path to your logo image
             alt="Logo"
             width={200} // Adjust width as needed
             height={200} // Adjust height as needed
             className="object-contain"
+            
           />
+          </a>
         </div>
         <div className="flex items-center justify-end w-2/4">
           <TypeAnimation
