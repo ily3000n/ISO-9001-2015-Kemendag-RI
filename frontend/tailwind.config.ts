@@ -33,6 +33,7 @@ const config: Config = {
       },
       animation: {
         meteor: "meteor 5s linear infinite",
+        pulse: "pulse var(--duration) ease-out infinite",
       },
       keyframes: {
         meteor: {
@@ -41,8 +42,14 @@ const config: Config = {
           "100%": {
             transform: "rotate(215deg) translateX(-500px)",
             opacity:" 0",
-          },
+          }
+          ,
         },
+        pulse: {
+          "0%, 100%": { boxShadow: "0 0 0 0 var(--pulse-color)" },
+          "50%": { boxShadow: "0 0 0 8px var(--pulse-color)" },
+        },
+        
       },
     },
   },

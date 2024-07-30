@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import PulsatingButton from "@/components/magicui/PulsatingButton";
+import { BsFillPlusSquareFill } from "react-icons/bs";
 
 interface Kesesuaian {
   ID: number;
@@ -193,7 +195,7 @@ const AuditTable: React.FC = () => {
     }
   };
   const renderTable = (category: string) => (
-    <table className="min-w-full bg-white border-collapse border border-gray-400 mb-8 shadow-lg">
+    <table className="min-w-full bg-white border-collapse border border-gray-400 mb-1 shadow-lg">
       <thead className="bg-blue-950">
         <tr className="text-white">
           <th
@@ -427,14 +429,22 @@ const AuditTable: React.FC = () => {
   );
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-semibold mb-6">Data Audit</h1>
-      <button
-        className="mb-4 bg-blue-500 text-white py-2 px-4 rounded"
-        onClick={() => setIsModalOpen(true)}
-      >
-        Tambah Data
-      </button>
+    <div className="px-2">
+      
+      <div className="fixed bottom-4 right-4 p-5">
+  <PulsatingButton>
+    <button
+      className="bg-blue-950 text-white py-2 px-4 rounded flex items-center space-x-2"
+      onClick={() => setIsModalOpen(true)}
+    >
+      <span>Tambah Data Audit</span> <BsFillPlusSquareFill />
+    </button>
+  </PulsatingButton>
+</div>
+
+  
+
+      
 
       <h2 className="text-xl font-semibold mt-8 mb-4">Dana Dekonsentrasi</h2>
       {renderTable('Domestik')}

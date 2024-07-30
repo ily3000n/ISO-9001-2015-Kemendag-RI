@@ -1,6 +1,8 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import AuditTable from './AuditTable';
+import Header from './HeaderLHI';
+
 
 
 const Home = () => {
@@ -182,8 +184,10 @@ const Home = () => {
   
 
   return (
+    <div>
+      <Header />
     <div className="container px-2">
-      <h1 className="text-2xl font-bold mb-4">Audit Table</h1>
+      <h1 className="text-2xl font-bold  text-center mt-5">Monitoring Pelaksanaan Audit Dana Dekonsentrasi dan Perwakilan Perdagangan</h1>
       <div ref={tableRef}>
         <AuditTable />
       </div>
@@ -294,6 +298,7 @@ const Home = () => {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };
