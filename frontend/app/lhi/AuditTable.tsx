@@ -480,8 +480,8 @@ const AuditTable: React.FC = () => {
                     className="border border-gray-300 p-2 w-full"
                   >
                     <option value="">Pilih Kategori</option>
-                    <option value="Domestik">Domestik</option>
-                    <option value="Luar Negeri">Luar Negeri</option>
+                    <option value="Domestik">Dana Dekonsentrasi</option>
+                    <option value="Luar Negeri">Perwakilan Perdagangan</option>
                   </select>
                 </div>
 
@@ -509,8 +509,8 @@ const AuditTable: React.FC = () => {
                 </div>
                 <h1 className="font-extrabold">
                   {' '}
-                  2.Surat Pemberitahuan Audit dikirim minimal 10 hari kerja
-                  sebelum audit dilaksanakan
+                  2. Surat Pemberitahuan Audit (dikirim minimal 10 hari kerja
+                  sebelum audit dilaksanakan)
                 </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
@@ -538,7 +538,7 @@ const AuditTable: React.FC = () => {
                 </div>
                 <h1 className="font-extrabold">
                   {' '}
-                  3.Jumlah Sumber Daya Manusia dalam Pelaksanaan Audit
+                  3. Jumlah Sumber Daya Manusia dalam Pelaksanaan Audit
                 </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
@@ -570,8 +570,8 @@ const AuditTable: React.FC = () => {
 
                 <h1 className="font-extrabold">
                   {' '}
-                  4. Verifikasi Tindak Lanjut Hasil Audit dilaksanakan maksimal
-                  7 hari kerja
+                  4. Verifikasi Tindak Lanjut Hasil Audit (dilaksanakan maksimal
+                  7 hari kerja)
                 </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
@@ -611,8 +611,8 @@ const AuditTable: React.FC = () => {
                 </div>
                 <h1 className="font-extrabold">
                   {' '}
-                  5. Penyelesaian IHA dan LHA maksimal 10 hari kerja setelah BA
-                  Exit
+                  5. Penyelesaian IHA dan LHA (maksimal 10 hari kerja setelah BA
+                  Exit)
                 </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
@@ -664,7 +664,7 @@ const AuditTable: React.FC = () => {
                 </div>
                 <h1 className="font-extrabold">
                   6. Unit Kerja menyampaikan bukti TL pada Aplikasi SI PINTAR
-                  maksimal 40 hari kerja setelah BA Exit
+                  (maksimal 40 hari kerja setelah BA Exit)
                 </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
@@ -691,8 +691,8 @@ const AuditTable: React.FC = () => {
                   />
                 </div>
                 <h1 className="font-extrabold">
-                  7. Sekretariat Itjen membuat Surat Selesai Audit maksimal 7
-                  hari kerja setelah Seluruh Tl dinyatakan selesai
+                  7. Sekretariat Itjen membuat Surat Selesai Audit (maksimal 7
+                  hari kerja setelah Seluruh Tl dinyatakan selesai)
                 </h1>
                 <div className="mb-4">
                   <label className="block text-gray-700">
@@ -722,7 +722,7 @@ const AuditTable: React.FC = () => {
               <div className="flex justify-end">
                 <button
                   type="button"
-                  className="mr-4 bg-gray-500 text-white py-2 px-4 rounded"
+                  className="mr-4 bg-red-600 text-white py-2 px-4 rounded"
                   onClick={() => setIsModalOpen(false)}
                 >
                   Batal
