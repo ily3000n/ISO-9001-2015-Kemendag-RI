@@ -195,6 +195,7 @@ const AuditTable: React.FC = () => {
     } catch (error) {
       console.error('Error deleting data', error);
     }
+    window.location.reload();
   };
   const renderTable = (category: string) => (
     <div className='overflow-x-auto'>
