@@ -195,6 +195,7 @@ const AuditTable: React.FC = () => {
     }
   };
   const renderTable = (category: string) => (
+    <div className='overflow-x-auto'>
     <table className="min-w-full bg-white border-collapse border border-gray-400 mb-1 shadow-lg">
       <thead className="bg-blue-950">
         <tr className="text-white">
@@ -426,6 +427,8 @@ const AuditTable: React.FC = () => {
           ))}
       </tbody>
     </table>
+
+    </div>
   );
 
   return (
