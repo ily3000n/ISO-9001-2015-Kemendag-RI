@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AuditTable from './AuditTable';
 import Header from './HeaderLHI';
+import Footer from '@/components/Footer';
 
 
 
@@ -237,7 +238,7 @@ const Home = () => {
       <h1 className="text-2xl font-bold mt-8 mb-4">
         PERSENTASE KOMPONEN PERWAKILAN PERDAGANGAN
       </h1>
-      <table className="min-w-full border-collapse border border-gray-400">
+      <table className="min-w-full border-collapse border border-gray-400 ">
         <thead>
           <tr className="bg-blue-950 text-white">
             <th className="py-2 px-4 border border-gray-400">No</th>
@@ -278,7 +279,7 @@ const Home = () => {
       <h1 className="text-2xl font-bold mt-8 mb-4">
         PERSENTASE DANA DEKONSENTRASI DAN PERWAKILAN PERDAGANGAN
       </h1>
-      <table className="min-w-full border-collapse border border-gray-400">
+      <table className="min-w-full border-collapse border border-gray-400 mb-12">
         <thead>
           <tr className="bg-blue-950 text-white">
             <th className="py-2 px-4 border border-gray-400">No</th>
@@ -299,6 +300,7 @@ const Home = () => {
         </tbody>
       </table>
     </div>
+    <Footer />
     </div>
   );
 };

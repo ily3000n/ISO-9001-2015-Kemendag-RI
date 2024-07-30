@@ -5,7 +5,7 @@ import { TypeAnimation } from 'react-type-animation';
 
 const Header = () => {
   return (
-    <div className="h-full w-full bg-blue-950 flex items-center justify-center p-3 text-white">
+    <div className="h-full w-full bg-blue-950 flex items-center justify-center p-3 text-white ">
       <div className="flex items-center w-full justify-between">
         <div className="flex items-center justify-start w-2/4">
           <Image 
@@ -17,24 +17,22 @@ const Header = () => {
           />
         </div>
         <div className="flex items-center justify-end w-2/4">
-          {/* <h1 className="md:text-7xl text-2xl lg:text-md font-bold text-blue-950 text-left"> */}
-            <TypeAnimation
-              sequence={[
-                'ISO',
-                1000,
-                'ISO 9001 ',
-                1000,
-                'ISO 9001 : ',
-                1000,
-                'ISO 9001 : 2015',
-                1000,
-              ]}
-              speed={50}
-              style={{ fontSize: '' }}
-              repeat={Infinity}
-              className="md:text-3xl sm:text-3xl lg:text-md font-bold text-white text-left"
-            />
-          {/* </h1> */}
+          <TypeAnimation
+            sequence={[
+              'ISO',
+              1000,
+              'ISO 9001 ',
+              1000,
+              'ISO 9001 : ',
+              1000,
+              'ISO 9001 : 2015',
+              1000,
+            ]}
+            speed={50}
+            style={{ fontSize: '' }}
+            repeat={Infinity}
+            className="md:text-3xl sm:text-3xl lg:text-md font-bold text-white text-left"
+          />
         </div>
       </div>
     </div>

@@ -85,11 +85,12 @@ const Gallery = () => {
                 <h1 className="text-3xl md:text-5xl text-white font-extrabold text-center">ISO 9001:2015</h1>
               </BoxReveal>
               <TypewriterEffectSmooth words={words} />
-              <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-4">
-              <button  className="px-12 py-4 rounded-full bg-green-600 font-bold text-white tracking-widest uppercase transform hover:scale-105 hover:bg-[#21e065] transition-colors duration-200" 
-              onClick={() => window.location.href = '/login'}>
-                    LOGIN
-                  </button>
+              <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 space-x-0 md:space-x-4 mt-4">
+              <button onClick={() => window.location.href = '/login'} className="px-7 py-1 backdrop-blur-sm border bg-emerald-300/10 border-emerald-500/20 text-white mx-auto text-center rounded-full relative mt-1">
+               <span>LOGIN</span>
+             <div className="absolute inset-x-0  h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-emerald-500 to-transparent" />
+               </button>
+              
               </div>
             </div>
           </motion.div>
