@@ -160,13 +160,13 @@ const Home = () => {
   }
 
   const components = [
-    'Surat Pemberitahuan Audit dikirim minimal 10 hari kerja sebelum audit dilaksanakan',
+    'Surat Pemberitahuan Audit (dikirim minimal 10 hari kerja sebelum audit dilaksanakan)',
     'Jumlah hari pelaksanaan Audit',
     'Jumlah Sumber Daya Manusia dalam Pelaksanaan Audit',
-    'Verifikasi Tindak Lanjut Hasil Audit dilaksanakan maksimal 7 hari kerja',
-    'Penyelesaian IHA dan LHA maksimal 10 hari kerja setelah BA Exit',
-    'Unit Kerja menyampaikan bukti TL pada Aplikasi SI PINTAR maksimal 40 hari kerja setelah BA Exit',
-    'Sekretariat Itjen membuat Surat Selesai Audit maksimal 7 hari kerja setelah Seluruh TL dinyatakan selesai',
+    'Verifikasi Tindak Lanjut Hasil Audit (dilaksanakan maksimal 7 hari kerja)',
+    'Penyelesaian IHA dan LHA (maksimal 10 hari kerja setelah BA Exit)',
+    'Unit Kerja menyampaikan bukti TL pada Aplikasi SI PINTAR (maksimal 40 hari kerja setelah BA Exit)',
+    'Sekretariat Itjen membuat Surat Selesai Audit (maksimal 7 hari kerja setelah Seluruh TL dinyatakan selesai)',
   ];
 
   const domainData = [
