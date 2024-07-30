@@ -106,7 +106,7 @@ const CMSPage: React.FC = () => {
             />
             <NavItem
               icon={<LiaTableSolid className="text-xl mr-2" />}
-              label="LHI"
+              label="Monitoring Audit"
               onClick={() => (window.location.href = '/lhi')}
             />
             <NavItem
