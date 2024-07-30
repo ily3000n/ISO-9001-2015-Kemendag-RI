@@ -434,7 +434,7 @@ const AuditTable: React.FC = () => {
       <div className="fixed bottom-4 right-4 p-5">
   <PulsatingButton>
     <button
-      className="bg-blue-950 text-white py-2 px-4 rounded flex items-center space-x-2"
+      className="bg-green-600 text-white p-1 rounded flex items-center space-x-2"
       onClick={() => setIsModalOpen(true)}
     >
       <span>Tambah Data Audit</span> <BsFillPlusSquareFill />
