@@ -269,6 +269,7 @@ const AuditTable: React.FC = () => {
             Persentase Kesesuaian
           </th>
           <th className="py-2 px-4 text-center" rowSpan={2}></th>
+          <th className="py-2 px-4 text-center" rowSpan={2}></th>
         </tr>
         <tr className="text-white">
           <th className="py-2 px-4 border border-gray-400 text-center">
@@ -424,6 +425,14 @@ const AuditTable: React.FC = () => {
                   onClick={() => handleDelete(item.ID)}
                 >
                   Hapus
+                </button>
+              </td>
+              <td className="py-2 px-4 border border-gray-400 bg-blue-950">
+                <button
+                  className="bg-sky-500 text-white rounded-lg p-2 hover:bg-red-600"
+                  onClick={() => handleDelete(item.ID)}
+                >
+                  Edit
                 </button>
               </td>
             </tr>
