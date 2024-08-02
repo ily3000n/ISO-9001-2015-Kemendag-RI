@@ -38,8 +38,8 @@ interface Data {
   tanggal_tindak_lanjut: string;
   tanggal_verifikasi: string;
   tanggal_ba_exit: string;
-  tanggal_terbit_iha: string;
-  tanggal_terbit_lha: string;
+  
+  tanggal_terbit_iha_lha: string;
   tanggal_selesai_tl: string;
   tanggal_surat_selesai: string;
   kesesuaian: Kesesuaian[];
@@ -78,8 +78,8 @@ const AuditTable: React.FC = () => {
     tanggal_tindak_lanjut: '',
     tanggal_verifikasi: '',
     tanggal_ba_exit: '',
-    tanggal_terbit_iha: '',
-    tanggal_terbit_lha: '',
+    tanggal_terbit_iha_lha: '',
+    
     tanggal_selesai_tl: '',
     tanggal_surat_selesai: '',
     hari_libur_surat: 0,
@@ -145,8 +145,8 @@ const AuditTable: React.FC = () => {
       tanggal_tindak_lanjut: formatDate(formData.tanggal_tindak_lanjut),
       tanggal_verifikasi: formatDate(formData.tanggal_verifikasi),
       tanggal_ba_exit: formatDate(formData.tanggal_ba_exit),
-      tanggal_terbit_iha: formatDate(formData.tanggal_terbit_iha),
-      tanggal_terbit_lha: formatDate(formData.tanggal_terbit_lha),
+      tanggal_terbit_iha: formatDate(formData.tanggal_terbit_iha_lha),
+      
       tanggal_selesai_tl: formatDate(formData.tanggal_selesai_tl),
       tanggal_surat_selesai: formatDate(formData.tanggal_surat_selesai),
       jumlah_orang: parseInt(formData.jumlah_orang as any, 10),
@@ -246,7 +246,7 @@ const AuditTable: React.FC = () => {
           </th>
           <th
             className="py-2 px-4 border border-gray-400 text-center"
-            colSpan={4}
+            colSpan={3}
           >
             5. Penyelesaian IHA dan LHA
           </th>
@@ -315,11 +315,9 @@ const AuditTable: React.FC = () => {
             Tanggal BA Exit
           </th>
           <th className="py-2 px-4 border border-gray-400 text-center">
-            Tanggal Terbit IHA
+            Tanggal Terbit IHA/LHA
           </th>
-          <th className="py-2 px-4 border border-gray-400 text-center">
-            Tanggal Terbit LHA
-          </th>
+          
           <th className="py-2 px-4 border border-gray-400 text-center">
             Sesuai
           </th>
@@ -396,11 +394,9 @@ const AuditTable: React.FC = () => {
                 {formatDateReadable(item.tanggal_ba_exit)}
               </td>
               <td className="py-2 px-4 border border-gray-400 text-nowrap">
-                {formatDateReadable(item.tanggal_terbit_iha)}
+                {formatDateReadable(item.tanggal_terbit_iha_lha)}
               </td>
-              <td className="py-2 px-4 border border-gray-400 text-nowrap">
-                {formatDateReadable(item.tanggal_terbit_lha)}
-              </td>
+              
               <td className="py-2 px-4 border border-gray-400">
                 {item.kesesuaian[0].kesesuaian_iha ? 'Ya' : 'Tidak'}
               </td>
@@ -643,28 +639,17 @@ const AuditTable: React.FC = () => {
                 </div>
                 <div className="mb-4">
                   <label className="block text-gray-700">
-                    Tanggal Terbit IHA:
+                    Tanggal Terbit IHA/LHA:
                   </label>
                   <input
                     type="date"
                     name="tanggal_terbit_iha"
-                    value={formData.tanggal_terbit_iha}
+                    value={formData.tanggal_terbit_iha_lha}
                     onChange={handleInputChange}
                     className="border border-gray-300 p-2 w-full"
                   />
                 </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700">
-                    Tanggal Terbit LHA:
-                  </label>
-                  <input
-                    type="date"
-                    name="tanggal_terbit_lha"
-                    value={formData.tanggal_terbit_lha}
-                    onChange={handleInputChange}
-                    className="border border-gray-300 p-2 w-full"
-                  />
-                </div>
+                
                 <div className="mb-4">
                   <label className="block text-gray-700">
                     Total hari libur dan/atau cuti{' '}
