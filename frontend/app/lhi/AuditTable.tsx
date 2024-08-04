@@ -426,7 +426,7 @@ const AuditTable: React.FC = () => {
               <td className="py-2 px-4 border border-gray-400 bg-blue-950">
                 <button
                   className="bg-sky-500 text-white rounded-lg p-2 hover:bg-red-600"
-                  onClick={() => handleDelete(item.ID)}
+                  
                 >
                   Edit
                 </button>
@@ -643,7 +643,7 @@ const AuditTable: React.FC = () => {
                   </label>
                   <input
                     type="date"
-                    name="tanggal_terbit_iha"
+                    name="tanggal_terbit_iha_lha"
                     value={formData.tanggal_terbit_iha_lha}
                     onChange={handleInputChange}
                     className="border border-gray-300 p-2 w-full"
