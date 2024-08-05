@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PulsatingButton from '@/components/magicui/PulsatingButton';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
+import LoginPopup from './LoginPopup';
 
 interface Kesesuaian {
   ID: number;
@@ -89,27 +90,38 @@ const AuditTable: React.FC = () => {
     hari_libur_bukti_tl: 0,
     hari_libur_selesai: 0,
   });
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 
   useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    const axiosInstance = axios.create({
+      baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    axiosInstance.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response && error.response.status === 401) {
+          setIsLoginPopupOpen(true);
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    const fetchData = async () => {
+      try {
+        const result = await axiosInstance.get('/api/audits');
+        setData(result.data);
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+    };
+
     fetchData();
   }, []);
-
-  const fetchData = async () => {
-    const token = sessionStorage.getItem('token');
-    try {
-      const result = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/audits`,
-        {
-          headers: {
-            Authorization: ` ${token}`,
-          },
-        }
-      );
-      setData(result.data);
-    } catch (error) {
-      console.error('Error fetching data', error);
-    }
-  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -784,6 +796,7 @@ const AuditTable: React.FC = () => {
           </div>
         </div>
       )}
+      <LoginPopup isOpen={isLoginPopupOpen} onClose={() => setIsLoginPopupOpen(false)} />
     </div>
   );
 };
