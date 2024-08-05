@@ -3,6 +3,7 @@
   import PulsatingButton from "@/components/magicui/PulsatingButton";
   import { BsFillPlusSquareFill } from "react-icons/bs";
 
+  
   interface Kesesuaian {
     ID: number;
     jumlah_hari_surat: number;
@@ -63,6 +64,9 @@
   };
 
   const AuditTable: React.FC = () => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [editId, setEditId] = useState<number | null>(null);
+
     const [data, setData] = useState<Data[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [formData, setFormData] = useState({
@@ -132,9 +136,12 @@
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       const token = sessionStorage.getItem('token');
-      
-
-      // Konversi format tanggal
+    
+      // Log the backend URL and editId for debugging
+      console.log('Backend URL:', process.env.NEXT_PUBLIC_BACKEND_URL);
+      console.log('Edit ID:', editId);
+    
+      // Convert date formats
       const formattedData = {
         ...formData,
         tanggal_mulai: formatDate(formData.tanggal_mulai),
@@ -144,42 +151,83 @@
         tanggal_verifikasi: formatDate(formData.tanggal_verifikasi),
         tanggal_ba_exit: formatDate(formData.tanggal_ba_exit),
         tanggal_terbit_iha_lha: formatDate(formData.tanggal_terbit_iha_lha),
-        
         tanggal_selesai_tl: formatDate(formData.tanggal_selesai_tl),
         tanggal_surat_selesai: formatDate(formData.tanggal_surat_selesai),
         jumlah_orang: parseInt(formData.jumlah_orang as any, 10),
         hari_libur_surat: parseInt(formData.hari_libur_surat as any, 10),
-        hari_libur_verifikasi: parseInt(
-          formData.hari_libur_verifikasi as any,
-          10
-        ),
+        hari_libur_verifikasi: parseInt(formData.hari_libur_verifikasi as any, 10),
         hari_libur_iha: parseInt(formData.hari_libur_iha as any, 10),
         hari_libur_bukti_tl: parseInt(formData.hari_libur_bukti_tl as any, 10),
         hari_libur_selesai: parseInt(formData.hari_libur_selesai as any, 10),
       };
-
+    
       try {
-        const result = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/audit/audit-with-kesesuaian`,
-          formattedData,
-          {
-            headers: {
-              Authorization: `${token}`,
-            },
-          }
-        );
-        setData([...data, result.data]);
+        let result: any;
+        
+        if (isEditing && editId !== null) {
+          result = await axios.put(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/audit`,
+            formattedData,
+            {
+              headers: {
+                Authorization: `${token}`,
+              },
+            }
+          );
+          setData(data.map(item => (item.ID === editId ? result.data : item)));
+        } else {
+          result = await axios.post(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/audit/audit-with-kesesuaian`,
+            formattedData,
+            {
+              headers: {
+                Authorization: `${token}`,
+              },
+            }
+          );
+          setData([...data, result.data]);
+        }
         setIsModalOpen(false);
+        setIsEditing(false);
+        setEditId(null);
       } catch (error) {
         console.error('Error submitting data', error);
       }
-    
     };
+    
+    
+    const handleEdit = (item: Data) => {
+      setFormData({
+        auditan: item.auditan,
+        kategori: item.kategori,
+        no_surat_tugas: item.no_surat_tugas,
+        tanggal_mulai: item.tanggal_mulai.split('T')[0],
+        tanggal_selesai: item.tanggal_selesai.split('T')[0],
+        jumlah_orang: item.jumlah_orang,
+        inspektur_hadir: item.inspektur_hadir,
+        tanggal_surat: item.tanggal_surat.split('T')[0],
+        tanggal_tindak_lanjut: item.tanggal_tindak_lanjut.split('T')[0],
+        tanggal_verifikasi: item.tanggal_verifikasi.split('T')[0],
+        tanggal_ba_exit: item.tanggal_ba_exit.split('T')[0],
+        tanggal_terbit_iha_lha: item.tanggal_terbit_iha_lha.split('T')[0],
+        tanggal_selesai_tl: item.tanggal_selesai_tl.split('T')[0],
+        tanggal_surat_selesai: item.tanggal_surat_selesai.split('T')[0],
+        hari_libur_surat: item.hari_libur_surat,
+        hari_libur_verifikasi: item.hari_libur_verifikasi,
+        hari_libur_iha: item.hari_libur_iha,
+        hari_libur_bukti_tl: item.hari_libur_bukti_tl,
+        hari_libur_selesai: item.hari_libur_selesai,
+      });
+      setEditId(item.ID);
+      setIsEditing(true);
+      setIsModalOpen(true);
+    };
+    
     const handleDelete = async (id: number) => {
       const token = sessionStorage.getItem('token');
       try {
         const response = await axios.delete(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/audit/${id}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/audit`,
           {
             headers: {
               Authorization: `${token}`,
@@ -424,8 +472,10 @@
                 <td className="py-2 px-4 border border-gray-400 bg-blue-950">
                   <button
                     className="bg-sky-500 text-white rounded-lg p-2 hover:bg-red-600"
+                    onClick={() => handleEdit(item)}
                     
                   >
+                    
                     Edit
                   </button>
                 </td>
@@ -741,3 +791,4 @@
   };
 
   export default AuditTable;
+
