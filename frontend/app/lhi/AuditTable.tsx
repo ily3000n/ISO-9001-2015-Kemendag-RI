@@ -198,6 +198,7 @@ const AuditTable: React.FC = () => {
     } catch (error) {
       console.error('Error submitting data', error);
     }
+    window.location.reload();
   };
 
   const handleEdit = (item: Data) => {
@@ -225,6 +226,7 @@ const AuditTable: React.FC = () => {
     setEditId(item.ID);
     setIsEditing(true);
     setIsModalOpen(true);
+    
   };
 
   const handleDelete = async (id: number) => {
